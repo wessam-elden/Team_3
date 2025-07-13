@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:maporia/constants/app_colors.dart';
 import 'package:maporia/constants/app_text.dart';
 import 'package:maporia/presentation/screens/home.dart';
+import 'package:maporia/presentation/screens/signup.dart';
 import 'package:maporia/presentation/widgets/clickableText.dart';
-import 'package:maporia/presentation/widgets/custom_Button.dart';
+import 'package:maporia/presentation/widgets/custom_button.dart';
 import 'package:maporia/presentation/widgets/custom_scaffold.dart';
-import 'package:maporia/presentation/widgets/loginForm.dart';
+import 'package:maporia/presentation/widgets/login_form.dart';
 import 'package:maporia/presentation/widgets/signWith.dart';
 
 class Login extends StatelessWidget {
@@ -88,7 +89,7 @@ class Login extends StatelessWidget {
                     color: AppColors.brown,
                     fontWeight: FontWeight.bold,
                     function: (){
-                      //return Navigator.pushReplacementNamed(context, routeName);
+                      return Navigator.pushNamed(context, Signup.routeName);
                     }
                 )
               ],

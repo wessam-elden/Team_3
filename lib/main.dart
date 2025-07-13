@@ -14,7 +14,7 @@ class Maporia extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: Signup.routeName,
+      initialRoute: Onboarding.routeName,
       routes: {
         Onboarding.routeName : (context)=> const Onboarding(),
         Login.routeName : (context)=> Login(),

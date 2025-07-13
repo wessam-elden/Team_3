@@ -53,20 +53,30 @@ class Signup extends StatelessWidget {
                         color: AppColors.brownCinnamon
                     ),
                   ),
-                  SizedBox(width: 5,),
-                  ClickableText(
-                      title: AppText.registerNow,
-                      size: 14,
-                      color: AppColors.brown,
-                      fontWeight: FontWeight.bold,
-                      function: (){
-                        //return Navigator.pushReplacementNamed(context, routeName);
-                      }
-                  )
                 ],
               ),
               SizedBox(height: 20,),
               SignWith(),
+              SizedBox(height: 20,),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    AppText.alreadyAMember,
+                    style: TextStyle(
+                        color: AppColors.brownCinnamon
+                    ),
+                  ),
+                  SizedBox(width: 5,),
+                  ClickableText(
+                      title: AppText.signIn,
+                      size: 14,
+                      color: AppColors.brown,
+                      function: (){Navigator.pop(context);},
+                      fontWeight: FontWeight.bold
+                  )
+                ],
+              ),
             ],
           ),
         ),

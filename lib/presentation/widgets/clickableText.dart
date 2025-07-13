@@ -18,7 +18,7 @@ class ClickableText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: function(),
+      onTap: () => function(),
       child: Text(
         title,
         style: TextStyle(

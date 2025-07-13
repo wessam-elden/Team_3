@@ -39,6 +39,7 @@ class AppText {
   static const passwordValidator3 = 'Must be between 8 and 20 characters';
   static const passwordHintText = ' Use 8-20 characters, including uppercase\nlowercase, number, and special character';
 
+  static const alreadyAMember = 'Already a member';
 
 
 
