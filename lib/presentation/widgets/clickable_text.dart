@@ -6,13 +6,15 @@ class ClickableText extends StatelessWidget {
   final Color color;
   final Function function;
   final FontWeight fontWeight;
+  final TextAlign textAlign;
   const ClickableText({
     super.key,
     required this.title,
     required this.size,
     required this.color,
     required this.function,
-    required this.fontWeight
+    required this.fontWeight,
+    this.textAlign = TextAlign.start,
   });
 
   @override
@@ -21,12 +23,13 @@ class ClickableText extends StatelessWidget {
       onTap: () => function(),
       child: Text(
         title,
+        textAlign: textAlign,
         style: TextStyle(
           fontSize: size,
           color: color,
           fontWeight: fontWeight,
         ),
-
+        softWrap: true,
       ),
     );
   }

@@ -49,7 +49,7 @@ class _SignUpFormState extends State<SignUpForm> {
                           }
                           return null;
                         },
-                        onChanged: (){},
+                        onChanged: (_){},
                         hintText: AppText.firstName,
                         obscureText: false,
                         helperText: null,
@@ -71,7 +71,7 @@ class _SignUpFormState extends State<SignUpForm> {
                           }
                           return null;
                         },
-                        onChanged: (){},
+                        onChanged: (_){},
                         hintText: AppText.lastName,
                         obscureText: false,
                         helperText: null,
@@ -130,7 +130,7 @@ class _SignUpFormState extends State<SignUpForm> {
                   }
                   return null;
                 },
-                onChanged: (){},
+                onChanged: (_){},
                 hintText: AppText.password,
                 obscureText: !isPasswordVisible,
                 helperText: AppText.passwordHintText,
@@ -149,21 +149,19 @@ class _SignUpFormState extends State<SignUpForm> {
             const SizedBox(height: 15),
             // Confirm Password
             CustomTextField(
-                controller: _confirmPasswordController,
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return AppText.enterPassword;
-                  }
-                  if (value != _passwordController.text) {
-                    return AppText.passwordsDoNotMatch;
-                  }
-                  return null;
+              controller: _confirmPasswordController,
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return AppText.enterPassword;
+                }
+                if (value != _passwordController.text) {
+                  return AppText.passwordsDoNotMatch;
+                }
+                return null;
                 },
-                onChanged: (){},
-                hintText: AppText.confirmPassword,
-                obscureText: !isConfirmPasswordVisible,
-                helperText: null,
-                helperStyle: null,
+              onChanged: (_){},
+              hintText: AppText.confirmPassword,
+              obscureText: !isConfirmPasswordVisible,
               suffixIcon: InkWell(
                 onTap: () {
                   setState(() {

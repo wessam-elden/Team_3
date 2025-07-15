@@ -19,7 +19,7 @@ class CustomBackground extends StatelessWidget {
           left: 0,
           right: 0,
           child: Image.asset(
-            'assets/images/shadow.png',
+            AppAssets.shadow,
             fit: BoxFit.fitWidth,
             width: double.infinity,
           ),
