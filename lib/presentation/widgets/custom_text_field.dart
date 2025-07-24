@@ -20,7 +20,7 @@ class CustomTextField extends StatelessWidget {
     required this.obscureText,
     required this.helperText,
     required this.helperStyle,
-    required this.suffixIcon
+    required this.suffixIcon,
   });
 
   @override
