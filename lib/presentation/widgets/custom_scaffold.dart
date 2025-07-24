@@ -21,11 +21,16 @@ class CustomScaffold extends StatelessWidget {
                 borderRadius: BorderRadius.circular(15),
               ),
               child: Padding(
-                padding: EdgeInsets.only(top: 50, bottom: 30, left: 20, right: 20),
+                padding: EdgeInsets.only(
+                  top: 50,
+                  bottom: 30,
+                  left: 20,
+                  right: 20,
+                ),
                 child: SingleChildScrollView(child: widget),
               ),
             ),
-          )
+          ),
         ],
       ),
     );

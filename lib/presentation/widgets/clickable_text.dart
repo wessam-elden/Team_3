@@ -1,3 +1,4 @@
+// ignore: file_names
 import 'package:flutter/material.dart';
 
 class ClickableText extends StatelessWidget {
@@ -12,7 +13,7 @@ class ClickableText extends StatelessWidget {
     required this.size,
     required this.color,
     required this.function,
-    required this.fontWeight
+    required this.fontWeight,
   });
 
   @override
@@ -21,12 +22,7 @@ class ClickableText extends StatelessWidget {
       onTap: () => function(),
       child: Text(
         title,
-        style: TextStyle(
-          fontSize: size,
-          color: color,
-          fontWeight: fontWeight,
-        ),
-
+        style: TextStyle(fontSize: size, color: color, fontWeight: fontWeight),
       ),
     );
   }

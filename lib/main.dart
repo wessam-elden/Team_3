@@ -5,8 +5,9 @@ import 'package:maporia/presentation/screens/onboarding.dart';
 import 'package:maporia/presentation/screens/signup.dart';
 
 void main() {
-  runApp(const Maporia ());
+  runApp(const Maporia());
 }
+
 class Maporia extends StatelessWidget {
   const Maporia({super.key});
 
@@ -16,10 +17,10 @@ class Maporia extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       initialRoute: Onboarding.routeName,
       routes: {
-        Onboarding.routeName : (context)=> const Onboarding(),
-        Login.routeName : (context)=> Login(),
-        Home.routeName : (context)=> Home(),
-        Signup.routeName : (context)=> Signup(),
+        Onboarding.routeName: (context) => const Onboarding(),
+        Login.routeName: (context) => Login(),
+        Home.routeName: (context) => Home(),
+        Signup.routeName: (context) => Signup(),
       },
     );
   }

@@ -9,10 +9,7 @@ class CustomBackground extends StatelessWidget {
     return Stack(
       children: [
         Positioned.fill(
-          child: Image.asset(
-            AppAssets.background,
-            fit: BoxFit.cover,
-          ),
+          child: Image.asset(AppAssets.background, fit: BoxFit.cover),
         ),
         Positioned(
           top: 0,
