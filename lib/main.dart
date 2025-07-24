@@ -13,7 +13,6 @@ void main() {
   runApp(
     const Maporia(),
   );
-}
 
 class Maporia extends StatelessWidget {
   const Maporia({super.key});

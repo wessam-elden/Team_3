@@ -8,8 +8,8 @@ import 'package:maporia/presentation/widgets/clickable_text.dart';
 import 'package:maporia/presentation/widgets/custom_button.dart';
 import 'package:maporia/presentation/widgets/custom_scaffold.dart';
 import 'package:maporia/presentation/widgets/login_form.dart';
-import 'package:maporia/presentation/widgets/continue_with.dart';
 import 'package:maporia/presentation/widgets/text_container.dart';
+import 'package:maporia/presentation/widgets/sign_with.dart';
 
 class Login extends StatefulWidget {
   static String routeName = '/login';

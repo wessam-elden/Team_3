@@ -5,7 +5,7 @@ import 'package:maporia/presentation/screens/login.dart';
 import 'package:maporia/presentation/widgets/clickable_text.dart';
 import 'package:maporia/presentation/widgets/custom_Button.dart';
 import 'package:maporia/presentation/widgets/custom_scaffold.dart';
-import 'package:maporia/presentation/widgets/continue_with.dart';
+import 'package:maporia/presentation/widgets/sign_with.dart';
 import 'package:maporia/presentation/widgets/signup_form.dart';
 import 'package:maporia/presentation/widgets/text_container.dart';
 
