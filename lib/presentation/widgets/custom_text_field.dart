@@ -3,8 +3,8 @@ import 'package:maporia/constants/app_colors.dart';
 
 class CustomTextField extends StatelessWidget {
   final TextEditingController? controller;
-  final Function validator;
-  final Function onChanged;
+  final String? Function(String?) validator;
+  final void Function(String) onChanged;
   final String hintText;
   final bool obscureText;
   final String? helperText;
@@ -17,10 +17,10 @@ class CustomTextField extends StatelessWidget {
     required this.validator,
     required this.onChanged,
     required this.hintText,
-    required this.obscureText,
-    required this.helperText,
-    required this.helperStyle,
-    required this.suffixIcon,
+    this.obscureText = false,
+    this.helperText,
+    this.helperStyle,
+    this.suffixIcon,
   });
 
   @override
@@ -28,8 +28,8 @@ class CustomTextField extends StatelessWidget {
     return TextFormField(
       controller: controller,
       obscureText: obscureText,
-      validator: (value) => validator(value),
-      onChanged: (value) => onChanged(value),
+      validator: validator,
+      onChanged: onChanged,
       cursorColor: AppColors.brown,
       style: const TextStyle(color: AppColors.brown),
       decoration: InputDecoration(
