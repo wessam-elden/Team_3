@@ -97,7 +97,7 @@ class _HomeState extends State<Home> {
         .toList();
 
     return Scaffold(
-      backgroundColor: AppColors.ivoryCream ,
+      backgroundColor: AppColors.ivoryWhite ,
       body: Stack(
         children: [
           CustomScrollView(

@@ -69,4 +69,27 @@ class AppText {
   static const favorites = 'Favorites';
   static const settings = 'Settings';
 
+  //settings
+  static const editName = 'Edit Name';
+  static const cancel = 'Cancel';
+  static const save = 'Save';
+  static const username = 'Username';
+  static const changePassword = 'Change password';
+  static const logout = 'Logout';
+
+  //profile
+  static const visits = 'Visits';
+  static const profileError = 'An error occurred while loading data';
+  static const profileHasNoDate = 'There is no data available';
+
+  //favorites
+  static const emptyFav = 'No favorite places yet.';
+
+
+
+
+
+
+
+
 }

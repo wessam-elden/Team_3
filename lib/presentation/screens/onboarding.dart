@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:maporia/constants/app_colors.dart';
 import 'package:maporia/constants/app_text.dart';
-import 'package:maporia/presentation/screens/login.dart';
+import 'package:maporia/presentation/screens/login_screen/login.dart';
 import 'package:maporia/presentation/widgets/custom_Button.dart';
 import 'package:maporia/presentation/widgets/custom_background.dart';
 
