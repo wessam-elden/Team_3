@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:maporia/presentation/screens/home.dart';
+import 'package:maporia/presentation/screens/home_screen/home.dart';
 import 'package:maporia/presentation/screens/login.dart';
 import 'package:maporia/presentation/screens/onboarding.dart';
 import 'package:maporia/presentation/screens/password_configuration/forgot_password.dart';
@@ -12,7 +12,7 @@ import 'presentation/screens/password_configuration/reset_password.dart';
 void main() {
   runApp(
     const Maporia(),
-  );
+  );}
 
 class Maporia extends StatelessWidget {
   const Maporia({super.key});
@@ -21,7 +21,7 @@ class Maporia extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: Onboarding.routeName,
+      initialRoute: Home.routeName,
       routes: {
         Onboarding.routeName: (context) => const Onboarding(),
         Login.routeName: (context) => Login(),
