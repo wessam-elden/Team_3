@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-class PlaceDetailsPage extends StatelessWidget {
+class PlaceInfo extends StatelessWidget {
   final String title;
   final String description;
   final String image;
 
-  const PlaceDetailsPage({
+  const PlaceInfo({
     super.key,
     required this.title,
     required this.description,
@@ -16,10 +16,6 @@ class PlaceDetailsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(title),
-        backgroundColor: const Color(0xFF8C5E3C),
-      ),
       body: Column(
         children: [
           Image.asset(

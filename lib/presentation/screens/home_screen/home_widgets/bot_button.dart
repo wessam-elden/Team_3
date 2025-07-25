@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:maporia/constants/app_assets.dart';
-import 'package:maporia/presentation/screens/chatbot.dart';
+import 'package:maporia/presentation/screens/chatbot_screen/chatbot.dart';
 
 
 class BotButton extends StatelessWidget {

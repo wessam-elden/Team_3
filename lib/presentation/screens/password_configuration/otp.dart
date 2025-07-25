@@ -92,7 +92,7 @@ class _OTPState extends State<OTP> {
           const SizedBox(height: 10),
           Text(
             errorMessage!,
-            style: const TextStyle(color: AppColors.error, fontSize: 15),
+            style: const TextStyle(color: AppColors.red, fontSize: 15),
           ),
         ],
         SizedBox(height: size.height * 0.03),

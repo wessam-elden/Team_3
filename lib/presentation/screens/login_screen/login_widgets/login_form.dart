@@ -44,7 +44,7 @@ class _LoginFormState extends State<LoginForm> {
             controller: _emailController,
             validator: _validateEmail,
             cursorColor: AppColors.brown,
-            cursorErrorColor: AppColors.error,
+            cursorErrorColor: AppColors.red,
             decoration: InputDecoration(
               contentPadding: EdgeInsets.all(5),
               hintText: AppText.email,
@@ -59,11 +59,11 @@ class _LoginFormState extends State<LoginForm> {
               ),
               errorBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10),
-                borderSide: BorderSide(color: AppColors.error),
+                borderSide: BorderSide(color: AppColors.red),
               ),
               focusedErrorBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10),
-                borderSide: BorderSide(color: AppColors.error),
+                borderSide: BorderSide(color: AppColors.red),
               ),
             ),
           ),
@@ -74,7 +74,7 @@ class _LoginFormState extends State<LoginForm> {
             validator: _validatePassword,
             obscureText: !isVisible,
             cursorColor: AppColors.brown,
-            cursorErrorColor: AppColors.error,
+            cursorErrorColor: AppColors.red,
             decoration: InputDecoration(
               contentPadding: EdgeInsets.all(5),
               hintText: AppText.password,
@@ -99,11 +99,11 @@ class _LoginFormState extends State<LoginForm> {
               ),
               errorBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10),
-                borderSide: BorderSide(color: AppColors.error),
+                borderSide: BorderSide(color: AppColors.red),
               ),
               focusedErrorBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10),
-                borderSide: BorderSide(color: AppColors.error),
+                borderSide: BorderSide(color: AppColors.red),
               ),
             ),
           ),

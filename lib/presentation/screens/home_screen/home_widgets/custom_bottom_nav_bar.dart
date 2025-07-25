@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:maporia/constants/app_colors.dart';
 import 'package:maporia/constants/app_text.dart';
-import 'package:maporia/presentation/screens/favorites.dart';
-import 'package:maporia/presentation/screens/profile.dart';
-import 'package:maporia/presentation/screens/settings.dart';
+import 'package:maporia/presentation/screens/favorites_screen/favorites.dart';
+import 'package:maporia/presentation/screens/profile_screen/profile.dart';
+import 'package:maporia/presentation/screens/settings_screen/settings.dart';
 
 
 class CustomBottomNavBar extends StatelessWidget {
@@ -21,14 +21,14 @@ class CustomBottomNavBar extends StatelessWidget {
           children: [
             _buildNavItem(context, Icons.home, AppText.home, () {}, true),
             _buildNavItem(context, Icons.person, AppText.profile, () {
-              Navigator.push(context, MaterialPageRoute(builder: (_) => const ProfilePage()));
+              Navigator.push(context, MaterialPageRoute(builder: (_) => const Profile()));
             }),
             const SizedBox(width: 40),
             _buildNavItem(context, Icons.star_border, AppText.favorites, () {
               Navigator.push(context, MaterialPageRoute(builder: (_) => const FavoritesPage()));
             }),
             _buildNavItem(context, Icons.settings, AppText.settings, () {
-              Navigator.push(context, MaterialPageRoute(builder: (_) => const SettingsPage()));
+              Navigator.push(context, MaterialPageRoute(builder: (_) => const Settings()));
             }),
           ],
         ),

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:maporia/constants/app_colors.dart';
 import 'package:maporia/constants/app_text.dart';
+import 'package:maporia/presentation/screens/places_screen/places.dart';
 import 'place_card.dart';
-import '../../all_places.dart';
+
 
 class TopPlacesSection extends StatelessWidget {
   final List<Map<String, String>> places;
@@ -41,7 +42,7 @@ class TopPlacesSection extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (_) => AllPlacesPage(places: places),
+                    builder: (_) => Places(places: places),
                   ),
                 );
               },

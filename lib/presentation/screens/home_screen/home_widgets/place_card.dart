@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:maporia/constants/app_colors.dart';
-import 'package:maporia/presentation/screens/detailsplace.dart';
+import 'package:maporia/presentation/screens/place_info.dart';
 
 
 class PlaceCard extends StatelessWidget {
@@ -17,7 +17,7 @@ class PlaceCard extends StatelessWidget {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (_) => PlaceDetailsPage(
+              builder: (_) => PlaceInfo(
                 title: place['title']!,
                 description: place['description']!,
                 image: place['image']!,
@@ -30,6 +30,7 @@ class PlaceCard extends StatelessWidget {
           width: 260,
           margin: const EdgeInsets.only(right: 16),
           child: Card(
+            color: AppColors.white,
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -59,7 +60,7 @@ class PlaceCard extends StatelessWidget {
                       const SizedBox(height: 6),
                       Text(
                         place['description']!,
-                        style: const TextStyle(fontSize: 13),
+                        style: const TextStyle(color: AppColors.brown, fontSize: 13),
                       ),
                     ],
                   ),
