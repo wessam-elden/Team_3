@@ -9,4 +9,8 @@ class AppAssets {
 
   static const String right = '${_imagesPath}right.png';
 
+//home
+  static const String botIcon= '${_imagesPath}bot.png';
+  static const String welcome = '${_imagesPath}welcome.jpg';
+
 }

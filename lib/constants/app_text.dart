@@ -59,6 +59,14 @@ class AppText {
 
   static const resetPassword = 'Reset Password';
 
-
+  //home
+  static const selectACity = 'Select a City';
+  static const search = 'Search for a place...';
+  static const topPlaces = 'Top Places';
+  static const seeMore = 'See more';
+  static const home = 'Home';
+  static const profile = 'Profile';
+  static const favorites = 'Favorites';
+  static const settings = 'Settings';
 
 }
