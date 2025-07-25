@@ -1,107 +1,108 @@
 import 'package:flutter/material.dart';
 import 'package:maporia/constants/app_colors.dart';
 import 'package:maporia/constants/app_text.dart';
-// ignore: unused_import
 import 'package:maporia/presentation/screens/home.dart';
+import 'package:maporia/presentation/screens/password_configuration/forgot_password.dart';
 import 'package:maporia/presentation/screens/signup.dart';
 import 'package:maporia/presentation/widgets/clickable_text.dart';
 import 'package:maporia/presentation/widgets/custom_button.dart';
 import 'package:maporia/presentation/widgets/custom_scaffold.dart';
 import 'package:maporia/presentation/widgets/login_form.dart';
+import 'package:maporia/presentation/widgets/text_container.dart';
 import 'package:maporia/presentation/widgets/sign_with.dart';
 
-class Login extends StatelessWidget {
+class Login extends StatefulWidget {
   static String routeName = '/login';
+
+  const Login({super.key});
+
+  @override
+  State<Login> createState() => _LoginState();
+}
+
+class _LoginState extends State<Login> {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  Login({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    final height = size.height;
+    final width = size.width;
+
     return CustomScaffold(
-      widget: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Text(
-                AppText.loginTitle,
-                style: TextStyle(
-                  fontSize: 28,
-                  fontWeight: FontWeight.bold,
-                  color: AppColors.brownCinnamon,
-                ),
-              ),
-            ],
-          ),
-          Container(
-            alignment: Alignment.centerLeft,
-            child: FittedBox(
-              fit: BoxFit.scaleDown,
-              alignment: Alignment.centerLeft,
-              child: Text(
-                AppText.loginSubtitle,
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.w500,
-                  color: AppColors.brownCinnamon,
-                ),
-              ),
+      children: [
+        TextContainer(
+            text: AppText.loginTitle,
+            fontSize: 28
+        ),
+        TextContainer(
+            text: AppText.loginSubtitle,
+            fontSize: 18
+        ),
+        SizedBox(height: height * 0.03,),
+        LoginForm(formKey: formKey,),
+        Container(
+          width: double.infinity,
+          child: Padding(
+            padding: const EdgeInsets.only(
+                top: 15, bottom: 30, right: 10, left: 10),
+            child: ClickableText(
+              title: AppText.forgotPassword,
+              textAlign: TextAlign.end,
+              size: 15,
+              color: AppColors.brownCinnamon,
+              fontWeight: FontWeight.w400,
+              function: () {
+                Navigator.pushNamed(context, ForgotPassword.routeName);
+              },
             ),
           ),
-          SizedBox(height: 30),
-          LoginForm(formKey: formKey),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(
-                  top: 10,
-                  bottom: 20,
-                  right: 10,
-                  left: 10,
-                ),
-                child: ClickableText(
-                  title: AppText.forgotPassword,
-                  size: 15,
-                  color: AppColors.brownCinnamon,
-                  fontWeight: FontWeight.w400,
-                  function: () {},
-                ),
+        ),
+        CustomButton(
+          title: AppText.signIn,
+          formKey: formKey,
+          function: () {
+            Navigator.pushReplacementNamed(context, Home.routeName);
+          },
+        ),
+        SizedBox(height: height * 0.03,),
+        Padding(
+          padding: const EdgeInsets.only(
+              right: 60, left: 60, bottom: 10, top: 10),
+          child: Divider(color: AppColors.brown, thickness: 0.5,),
+        ),
+        TextContainer(
+            text: AppText.continueWith,
+            fontSize: 16,
+            textAlign: TextAlign.center,
+            fontWeight: FontWeight.w400
+        ),
+        SizedBox(height: height * 0.02,),
+        SignWith(),
+        SizedBox(height: height * 0.03,),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              AppText.needAnAccount,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 16,
               ),
-            ],
-          ),
-          CustomButton(
-            title: AppText.signIn,
-            formKey: formKey,
-            function: () {
-              Navigator.pushReplacementNamed(context, '/home');
-            },
-          ),
-          SizedBox(height: 20),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                AppText.signWith,
-                style: TextStyle(color: AppColors.brownCinnamon),
-              ),
-              SizedBox(width: 5),
-              ClickableText(
+            ),
+            SizedBox(width: width*0.01,),
+            ClickableText(
                 title: AppText.registerNow,
-                size: 14,
+                size: 16,
                 color: AppColors.brown,
-                fontWeight: FontWeight.bold,
-                function: () {
-                  return Navigator.pushNamed(context, Signup.routeName);
+                function: (){
+                  Navigator.pushNamed(context, Signup.routeName);
                 },
-              ),
-            ],
-          ),
-          SizedBox(height: 20),
-          SignWith(),
-        ],
-      ),
+                fontWeight: FontWeight.bold
+            )
+          ],
+        )
+      ],
     );
   }
 }

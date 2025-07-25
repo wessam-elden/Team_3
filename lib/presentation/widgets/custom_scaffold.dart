@@ -3,8 +3,8 @@ import 'package:maporia/constants/app_colors.dart';
 import 'custom_background.dart';
 
 class CustomScaffold extends StatelessWidget {
-  final Widget widget;
-  const CustomScaffold({super.key, required this.widget});
+  final List<Widget> children;
+  const CustomScaffold({super.key, required this.children});
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +13,7 @@ class CustomScaffold extends StatelessWidget {
       body: Stack(
         children: [
           CustomBackground(),
-          Align(
+          Center(
             child: Container(
               width: MediaQuery.of(context).size.width * 0.9,
               decoration: BoxDecoration(
@@ -21,16 +21,16 @@ class CustomScaffold extends StatelessWidget {
                 borderRadius: BorderRadius.circular(15),
               ),
               child: Padding(
-                padding: EdgeInsets.only(
-                  top: 50,
-                  bottom: 30,
-                  left: 20,
-                  right: 20,
+                padding: EdgeInsets.only(top: 50, bottom: 30, left: 20, right: 20),
+                child: SingleChildScrollView(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: children,
+                  ),
                 ),
-                child: SingleChildScrollView(child: widget),
               ),
             ),
-          ),
+          )
         ],
       ),
     );
