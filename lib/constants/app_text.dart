@@ -5,10 +5,10 @@ class AppText {
   static const maporia = 'Maporia';
   //login
   static const loginTitle = 'Let’s Travel you in.';
-  static const loginSubtitle = 'Discover the Egypt with Every Sign In';
+  static const loginSubtitle = 'Discover Egypt with Every Sign In';
   static const forgotPassword = 'Forgot Password?';
   static const signIn = 'Sign In';
-  static const signWith = 'or sign in with';
+  static const continueWith = 'Or continue with';
   static const needAnAccount = 'Need an Account?';
   static const registerNow = 'Register Now';
   static const email = 'Email';
@@ -38,11 +38,57 @@ class AppText {
 
   static const passwordValidator3 = 'Must be between 8 and 20 characters';
   static const passwordHintText = ' Use 8-20 characters, including uppercase\nlowercase, number, and special character';
-
   static const alreadyAMember = 'Already a member';
 
+//forgot password
+  static const send = 'send';
+  static const rememberedIt = 'Remembered it?';
+  static const error1 = 'Please Enter The Code';
+  static const error2 = 'Incorrect code. Please try again.';
+  static const snackBarMessage = 'A new code has been sent to your email.';
+  static const verify = 'Verify';
+  static const editEmail = 'Edit Email';
+  static const editInfo = 'Edit Information';
+  static const resend = 'Resend';
 
+  static const setCurrentPassword = 'Please enter your current password.';
+  static const currentPassword = 'Current Password';
 
+  static const reset = 'Reset';
+  static const otpVerification = 'OTP Verification';
+  static const passwordChanged = 'Password has been changed successfully';
+  static const accountCreated = 'Account has been created successfully';
+  static const resetPassword = 'Reset Password';
+
+  //home
+  static const selectACity = 'Select a City';
+  static const search = 'Search for a place...';
+  static const topPlaces = 'Top Places';
+  static const seeMore = 'See more';
+  static const home = 'Home';
+  static const profile = 'Profile';
+  static const favorites = 'Favorites';
+  static const settings = 'Settings';
+
+  //settings
+  static const editName = 'Edit Name';
+  static const cancel = 'Cancel';
+  static const save = 'Save';
+  static const username = 'Username';
+  static const changePassword = 'Change password';
+  static const logout = 'Logout';
+  static const gender = 'Gender';
+  static const selectGender = 'Select Gender';
+  static const male = 'Male';
+  static const female = 'Female';
+
+  //profile
+  static const visits = 'Visits';
+  static const profileError = 'An error occurred while loading data';
+  static const profileHasNoDate = 'There is no data available';
+
+  //favorites
+  static const emptyFav = 'No favorite places yet.';
 
 
 

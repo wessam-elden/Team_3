@@ -12,8 +12,6 @@ class SignWith extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         buildContainer(AppAssets.google),
-        SizedBox(width: 20),
-        buildContainer(AppAssets.apple),
       ],
     );
   }

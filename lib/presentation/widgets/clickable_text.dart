@@ -1,4 +1,3 @@
-// ignore: file_names
 import 'package:flutter/material.dart';
 
 class ClickableText extends StatelessWidget {
@@ -7,6 +6,7 @@ class ClickableText extends StatelessWidget {
   final Color color;
   final Function function;
   final FontWeight fontWeight;
+  final TextAlign textAlign;
   const ClickableText({
     super.key,
     required this.title,
@@ -14,6 +14,7 @@ class ClickableText extends StatelessWidget {
     required this.color,
     required this.function,
     required this.fontWeight,
+    this.textAlign = TextAlign.start,
   });
 
   @override
@@ -22,7 +23,13 @@ class ClickableText extends StatelessWidget {
       onTap: () => function(),
       child: Text(
         title,
-        style: TextStyle(fontSize: size, color: color, fontWeight: fontWeight),
+        textAlign: textAlign,
+        style: TextStyle(
+          fontSize: size,
+          color: color,
+          fontWeight: fontWeight,
+        ),
+        softWrap: true,
       ),
     );
   }
