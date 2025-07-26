@@ -3,7 +3,7 @@ import 'package:maporia/constants/app_colors.dart';
 import 'package:maporia/constants/app_text.dart';
 import 'package:maporia/presentation/screens/password_configuration/forgot_password.dart';
 import 'package:maporia/presentation/screens/password_configuration/reset_password.dart';
-import 'package:maporia/presentation/screens/password_configuration/successful_password_verification.dart';
+import 'package:maporia/presentation/screens/password_configuration/successful_mission.dart';
 import 'package:maporia/presentation/screens/signup_screen/signup.dart';
 import 'package:maporia/presentation/widgets/clickable_text.dart';
 import 'package:maporia/presentation/widgets/custom_scaffold.dart';

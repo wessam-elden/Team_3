@@ -77,6 +77,10 @@ class AppText {
   static const username = 'Username';
   static const changePassword = 'Change password';
   static const logout = 'Logout';
+  static const gender = 'Gender';
+  static const selectGender = 'Select Gender';
+  static const male = 'Male';
+  static const female = 'Female';
 
   //profile
   static const visits = 'Visits';
