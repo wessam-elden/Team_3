@@ -56,7 +56,10 @@ class ForgotPassword extends StatelessWidget {
       SizedBox(height: height*0.035),
       CustomButton(
           title: AppText.send,
-          function:()=>Navigator.pushNamed(context,OTP.routeName),
+          function: () => Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => OTP(otpType: '/resetPassword',)),
+          ),
           formKey: _formKey
       ),
       SizedBox(height: height*0.04),

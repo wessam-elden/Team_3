@@ -3,11 +3,9 @@ import 'package:maporia/presentation/screens/home_screen/home.dart';
 import 'package:maporia/presentation/screens/login_screen/login.dart';
 import 'package:maporia/presentation/screens/onboarding.dart';
 import 'package:maporia/presentation/screens/password_configuration/forgot_password.dart';
-import 'package:maporia/presentation/screens/password_configuration/successful_password_verification.dart';
 import 'package:maporia/presentation/screens/profile_screen/profile.dart';
 import 'package:maporia/presentation/screens/settings_screen/settings.dart';
 import 'package:maporia/presentation/screens/signup_screen/signup.dart';
-import 'presentation/screens/password_configuration/otp.dart';
 import 'presentation/screens/password_configuration/reset_password.dart';
 
 void main() {
@@ -29,9 +27,7 @@ class Maporia extends StatelessWidget {
         Home.routeName: (context) => Home(),
         Signup.routeName: (context) => Signup(),
         ForgotPassword.routeName: (context) => ForgotPassword(),
-        OTP.routeName: (context) => OTP(),
         ResetPassword.routeName: (context) => ResetPassword(),
-        SuccessfulPasswordVerification.routeName: (context) => SuccessfulPasswordVerification(),
         Profile.routeName: (context) => Profile(),
         Settings.routeName: (context) => Settings(),
 

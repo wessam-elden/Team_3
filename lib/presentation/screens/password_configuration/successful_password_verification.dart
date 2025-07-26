@@ -7,9 +7,10 @@ import 'package:maporia/presentation/widgets/clickable_text.dart';
 import 'package:maporia/presentation/widgets/custom_scaffold.dart';
 import 'package:maporia/presentation/widgets/text_container.dart';
 
-class SuccessfulPasswordVerification extends StatelessWidget {
+class SuccessfulMission extends StatelessWidget {
   static String routeName = '/successfulPasswordVerification';
-  const SuccessfulPasswordVerification({super.key});
+  final String textType;
+  const SuccessfulMission({super.key, required this.textType});
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +22,7 @@ class SuccessfulPasswordVerification extends StatelessWidget {
     return CustomScaffold(
       children: [
         TextContainer(
-            text: AppText.passwordChangedSuccessfully,
+            text: textType == '/login' ? AppText.accountCreated : AppText.passwordChanged,
             textAlign: TextAlign.center,
             fontSize: 16
         ),

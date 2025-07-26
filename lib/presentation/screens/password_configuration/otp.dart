@@ -3,6 +3,8 @@ import 'package:maporia/constants/app_colors.dart';
 import 'package:maporia/constants/app_text.dart';
 import 'package:maporia/presentation/screens/password_configuration/forgot_password.dart';
 import 'package:maporia/presentation/screens/password_configuration/reset_password.dart';
+import 'package:maporia/presentation/screens/password_configuration/successful_password_verification.dart';
+import 'package:maporia/presentation/screens/signup_screen/signup.dart';
 import 'package:maporia/presentation/widgets/clickable_text.dart';
 import 'package:maporia/presentation/widgets/custom_scaffold.dart';
 import 'package:maporia/presentation/widgets/text_container.dart';
@@ -10,7 +12,8 @@ import 'package:pin_code_fields/pin_code_fields.dart';
 
 class OTP extends StatefulWidget {
   static String routeName = '/otp';
-  const OTP({super.key});
+  final String otpType;
+  const OTP({super.key, required this.otpType});
 
   @override
   State<OTP> createState() => _OTPState();
@@ -28,7 +31,16 @@ class _OTPState extends State<OTP> {
     }
 
     if (enteredCode == correctCode) {
-      Navigator.pushReplacementNamed(context, ResetPassword.routeName);
+        if (widget.otpType == '/signup') {
+          Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(
+              builder: (_) => SuccessfulMission(textType: '/login'),
+            ), (route) => false,
+          );
+        } else if (widget.otpType == '/resetPassword') {
+          Navigator.pushReplacementNamed(context, ResetPassword.routeName);
+        }
     } else {
       setState(() => errorMessage = AppText.error2);
     }
@@ -118,11 +130,17 @@ class _OTPState extends State<OTP> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             ClickableText(
-              title: AppText.editEmail,
+              title: widget.otpType == '/signup' ? AppText.editInfo: AppText.editEmail,
               size: 16,
               fontWeight: FontWeight.bold,
               color: AppColors.brown,
-              function: () => Navigator.pushReplacementNamed(context, ForgotPassword.routeName),
+              function: () {
+                if (widget.otpType == '/signup') {
+                  Navigator.pushReplacementNamed(context, Signup.routeName);
+                } else {
+                  Navigator.pushReplacementNamed(context, ForgotPassword.routeName);
+                }
+              },
             ),
             const SizedBox(width: 20),
             InkWell(
