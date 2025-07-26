@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'detailsplace.dart'; // تأكدي إن المسار صحيح حسب مشروعك
+import 'detailsplace.dart';
 
 class AllPlacesPage extends StatelessWidget {
   final List<Map<String, String>> places;
