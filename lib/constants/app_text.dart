@@ -48,6 +48,7 @@ class AppText {
   static const snackBarMessage = 'A new code has been sent to your email.';
   static const verify = 'Verify';
   static const editEmail = 'Edit Email';
+  static const editInfo = 'Edit Information';
   static const resend = 'Resend';
 
   static const setCurrentPassword = 'Please enter your current password.';
@@ -55,8 +56,8 @@ class AppText {
 
   static const reset = 'Reset';
   static const otpVerification = 'OTP Verification';
-  static const passwordChangedSuccessfully = 'Password Changed Successfully';
-
+  static const passwordChanged = 'Password has been changed successfully';
+  static const accountCreated = 'Account has been created successfully';
   static const resetPassword = 'Reset Password';
 
   //home

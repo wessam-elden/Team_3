@@ -136,14 +136,15 @@ class _ResetPasswordState extends State<ResetPassword> {
               ),
 
               SizedBox(height: height*0.03),
-
               CustomButton(
                   title: AppText.reset,
                   function: () {
                     if (_formKey.currentState!.validate()) {
-                      Navigator.pushNamedAndRemoveUntil(
+                      Navigator.pushAndRemoveUntil(
                         context,
-                        SuccessfulPasswordVerification.routeName,
+                        MaterialPageRoute(
+                          builder: (_) => SuccessfulMission(textType: '/resetPassword'),
+                        ),
                             (route) => false,
                       );
                     }
