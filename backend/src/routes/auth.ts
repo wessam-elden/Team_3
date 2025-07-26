@@ -10,9 +10,7 @@ router.post('/signup', signup);
 
 router.post('/login', login); 
 
-router.post("/visit", verifyTokenMiddleware, createVisitHandler);
 
-router.get("/visits", verifyTokenMiddleware, getAllVisitsHandler);
 
 router.get("/profile", verifyTokenMiddleware, getProfile);
 export default router;
