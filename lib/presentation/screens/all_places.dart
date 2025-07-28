@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
-import 'detailsplace.dart';
+import 'package:maporia/presentation/screens/createcity.dart';
+import 'package:maporia/presentation/screens/place_info.dart';
 
 class AllPlacesPage extends StatelessWidget {
   final List<Map<String, String>> places;
+  final bool isAdmin; // ✨ أضفنا دي
 
-  const AllPlacesPage({super.key, required this.places});
+  const AllPlacesPage({
+    super.key,
+    required this.places,
+    this.isAdmin = false, // ✨ قيمة افتراضية false
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +30,7 @@ class AllPlacesPage extends StatelessWidget {
                 context,
                 MaterialPageRoute(
                   builder:
-                      (_) => PlaceDetailsPage(
+                      (_) => PlaceInfo(
                         title: place['title']!,
                         description: place['description']!,
                         image: place['image']!,
@@ -78,6 +84,18 @@ class AllPlacesPage extends StatelessWidget {
           );
         },
       ),
+      floatingActionButton:
+          isAdmin
+              ? FloatingActionButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, CreateCity.routeName);
+                },
+                // ignore: sort_child_properties_last
+                child: const Icon(Icons.add),
+                backgroundColor: const Color(0xFF8C5E3C),
+                tooltip: 'Add City',
+              )
+              : null,
     );
   }
 }

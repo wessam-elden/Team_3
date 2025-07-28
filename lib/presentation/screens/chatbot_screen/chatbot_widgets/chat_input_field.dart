@@ -23,13 +23,12 @@ class ChatInputField extends StatelessWidget {
               decoration: InputDecoration(
                 filled: true,
                 fillColor: const Color.fromARGB(255, 229, 177, 126)
-                    .withOpacity(0.85),
+                // ignore: deprecated_member_use
+                .withOpacity(0.85),
                 hintText: 'Ask anything...',
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12),
-                  borderSide: const BorderSide(
-                    color: Color(0xFF8C5E3C),
-                  ),
+                  borderSide: const BorderSide(color: Color(0xFF8C5E3C)),
                 ),
               ),
             ),

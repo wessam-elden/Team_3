@@ -21,10 +21,8 @@ class _SettingsState extends State<Settings> {
   void _editName() async {
     final result = await showDialog<Map<String, String>>(
       context: context,
-      builder: (context) => EditNameDialog(
-        firstName: firstName,
-        lastName: lastName,
-      ),
+      builder:
+          (context) => EditNameDialog(firstName: firstName, lastName: lastName),
     );
 
     if (result != null) {
@@ -41,10 +39,7 @@ class _SettingsState extends State<Settings> {
       children: [
         const Padding(
           padding: EdgeInsets.only(bottom: 20, left: 10),
-          child: TextContainer(
-            text: AppText.settings,
-            fontSize: 28,
-          ),
+          child: TextContainer(text: AppText.settings, fontSize: 28),
         ),
         SettingsSection(
           firstName: firstName,

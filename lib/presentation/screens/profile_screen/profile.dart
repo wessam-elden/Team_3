@@ -39,9 +39,19 @@ class _ProfileState extends State<Profile> {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(child: CircularProgressIndicator());
             } else if (snapshot.hasError) {
-              return const Center(child: Text(AppText.profileError,style: TextStyle(color: AppColors.brown),));
+              return const Center(
+                child: Text(
+                  AppText.profileError,
+                  style: TextStyle(color: AppColors.brown),
+                ),
+              );
             } else if (!snapshot.hasData) {
-              return const Center(child: Text(AppText.profileHasNoDate, style: TextStyle(color: AppColors.brown)),);
+              return const Center(
+                child: Text(
+                  AppText.profileHasNoDate,
+                  style: TextStyle(color: AppColors.brown),
+                ),
+              );
             }
 
             final user = snapshot.data!;
@@ -56,9 +66,15 @@ class _ProfileState extends State<Profile> {
                     padding: EdgeInsets.symmetric(horizontal: 60, vertical: 10),
                     child: Divider(color: AppColors.brown, thickness: 0.5),
                   ),
-                  UserStatsCard(title: AppText.visits, value: user.visits.toString()),
+                  UserStatsCard(
+                    title: AppText.visits,
+                    value: user.visits.toString(),
+                  ),
                   const SizedBox(height: 5),
-                  UserStatsCard(title: AppText.visits, value: user.favorites.toString()),
+                  UserStatsCard(
+                    title: AppText.visits,
+                    value: user.favorites.toString(),
+                  ),
                 ],
               ),
             );

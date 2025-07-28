@@ -4,7 +4,6 @@ import 'package:maporia/constants/app_text.dart';
 import 'package:maporia/presentation/screens/place_info.dart';
 import 'package:maporia/presentation/screens/favorites_screen/favorites_widgets/favorite_card.dart';
 
-
 class FavoritesPage extends StatefulWidget {
   const FavoritesPage({super.key});
 
@@ -22,7 +21,8 @@ class _FavoritePlacesPageState extends State<FavoritesPage> {
     },
     {
       'title': 'Luxor Temple',
-      'description': 'An ancient Egyptian temple complex located on the east bank of the Nile.',
+      'description':
+          'An ancient Egyptian temple complex located on the east bank of the Nile.',
       'image': 'assets/images/karnak.jpg',
     },
     {
@@ -42,12 +42,13 @@ class _FavoritePlacesPageState extends State<FavoritesPage> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (_) => PlaceInfo(
-          title: place['title']!,
-          description: place['description']!,
-          image: place['image']!,
-          place: place,
-        ),
+        builder:
+            (_) => PlaceInfo(
+              title: place['title']!,
+              description: place['description']!,
+              image: place['image']!,
+              place: place,
+            ),
       ),
     );
   }
@@ -56,24 +57,25 @@ class _FavoritePlacesPageState extends State<FavoritesPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.ivoryWhite,
-      body: favoritePlaces.isEmpty
-          ? const Center(
-        child: Text(
-          AppText.emptyFav,
-          style: TextStyle(color: AppColors.brown, fontSize: 18),
-        ),
-      )
-          : ListView.builder(
-        itemCount: favoritePlaces.length,
-        itemBuilder: (context, index) {
-          final place = favoritePlaces[index];
-          return FavoriteCard(
-            place: place,
-            onRemove: () => removeFromFavorites(index),
-            onTap: () => goToDetails(place),
-          );
-        },
-      ),
+      body:
+          favoritePlaces.isEmpty
+              ? const Center(
+                child: Text(
+                  AppText.emptyFav,
+                  style: TextStyle(color: AppColors.brown, fontSize: 18),
+                ),
+              )
+              : ListView.builder(
+                itemCount: favoritePlaces.length,
+                itemBuilder: (context, index) {
+                  final place = favoritePlaces[index];
+                  return FavoriteCard(
+                    place: place,
+                    onRemove: () => removeFromFavorites(index),
+                    onTap: () => goToDetails(place),
+                  );
+                },
+              ),
     );
   }
 }

@@ -22,6 +22,8 @@ class Login extends StatefulWidget {
 
 class _LoginState extends State<Login> {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -31,21 +33,24 @@ class _LoginState extends State<Login> {
 
     return CustomScaffold(
       children: [
-        TextContainer(
-            text: AppText.loginTitle,
-            fontSize: 28
+        TextContainer(text: AppText.loginTitle, fontSize: 28),
+        TextContainer(text: AppText.loginSubtitle, fontSize: 18),
+        SizedBox(height: height * 0.03),
+        LoginForm(
+          formKey: formKey,
+          emailController: emailController,
+          passwordController: passwordController,
         ),
-        TextContainer(
-            text: AppText.loginSubtitle,
-            fontSize: 18
-        ),
-        SizedBox(height: height * 0.03,),
-        LoginForm(formKey: formKey,),
+        // ignore: sized_box_for_whitespace
         Container(
           width: double.infinity,
           child: Padding(
             padding: const EdgeInsets.only(
-                top: 15, bottom: 30, right: 10, left: 10),
+              top: 15,
+              bottom: 30,
+              right: 10,
+              left: 10,
+            ),
             child: ClickableText(
               title: AppText.forgotPassword,
               textAlign: TextAlign.end,
@@ -62,46 +67,56 @@ class _LoginState extends State<Login> {
           title: AppText.signIn,
           formKey: formKey,
           function: () {
-            Navigator.pushReplacementNamed(context, Home.routeName);
+            if (formKey.currentState!.validate()) {
+              final email = emailController.text.trim().toLowerCase();
+
+              if (email.startsWith('admin@')) {
+                Navigator.pushReplacementNamed(context, '/createCity');
+              } else {
+                Navigator.pushReplacementNamed(context, Home.routeName);
+              }
+            }
           },
         ),
-        SizedBox(height: height * 0.03,),
+        SizedBox(height: height * 0.03),
         Padding(
           padding: const EdgeInsets.only(
-              right: 60, left: 60, bottom: 10, top: 10),
-          child: Divider(color: AppColors.brown, thickness: 0.5,),
+            right: 60,
+            left: 60,
+            bottom: 10,
+            top: 10,
+          ),
+          child: Divider(color: AppColors.brown, thickness: 0.5),
         ),
         TextContainer(
-            text: AppText.continueWith,
-            fontSize: 16,
-            textAlign: TextAlign.center,
-            fontWeight: FontWeight.w400
+          text: AppText.continueWith,
+          fontSize: 16,
+          textAlign: TextAlign.center,
+          fontWeight: FontWeight.w400,
         ),
-        SizedBox(height: height * 0.02,),
+        SizedBox(height: height * 0.02),
         SignWith(),
-        SizedBox(height: height * 0.03,),
+        SizedBox(height: height * 0.03),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
               AppText.needAnAccount,
               textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: 16,
-              ),
+              style: TextStyle(fontSize: 16),
             ),
-            SizedBox(width: width*0.01,),
+            SizedBox(width: width * 0.01),
             ClickableText(
-                title: AppText.registerNow,
-                size: 15,
-                color: AppColors.brown,
-                function: (){
-                  Navigator.pushNamed(context, Signup.routeName);
-                },
-                fontWeight: FontWeight.bold
-            )
+              title: AppText.registerNow,
+              size: 15,
+              color: AppColors.brown,
+              function: () {
+                Navigator.pushNamed(context, Signup.routeName);
+              },
+              fontWeight: FontWeight.bold,
+            ),
           ],
-        )
+        ),
       ],
     );
   }

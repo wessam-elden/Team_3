@@ -19,19 +19,19 @@ class ChatMessageBubble extends StatelessWidget {
         margin: const EdgeInsets.symmetric(vertical: 6),
         constraints: const BoxConstraints(maxWidth: 280),
         decoration: BoxDecoration(
-          color: isUser
-              ? const Color(0xFFFFF8DC).withOpacity(0.85)
-              : const Color(0xFFDAA520).withOpacity(0.85),
+          color:
+              isUser
+                  // ignore: deprecated_member_use
+                  ? const Color(0xFFFFF8DC).withOpacity(0.85)
+                  // ignore: deprecated_member_use
+                  : const Color(0xFFDAA520).withOpacity(0.85),
           borderRadius: BorderRadius.only(
             topLeft: const Radius.circular(16),
             topRight: const Radius.circular(16),
             bottomLeft: Radius.circular(isUser ? 16 : 0),
             bottomRight: Radius.circular(isUser ? 0 : 16),
           ),
-          border: Border.all(
-            color: Colors.brown.shade300,
-            width: 1.5,
-          ),
+          border: Border.all(color: Colors.brown.shade300, width: 1.5),
         ),
         child: Text(
           text,
