@@ -18,8 +18,8 @@ class UserModel {
       name: json['name'],
       email: json['email'],
       gender: json['gender'],
-      visits: json['visits'],
-      favorites: json['favorites'],
+      visits: json['visits'] ?? 0,
+      favorites: json['favorites'] ?? 0,
     );
   }
 }

@@ -14,6 +14,7 @@ class Settings extends StatefulWidget {
 }
 
 class _SettingsState extends State<Settings> {
+
   // will be changed according to the user's name
   String name = "Ghada Abou-El-Fadl";
 
@@ -43,7 +44,6 @@ class _SettingsState extends State<Settings> {
         ),
         SettingsSection(
           name: name,
-          onEditName: _editName,
         ),
       ],
     );

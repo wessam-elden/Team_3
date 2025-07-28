@@ -21,8 +21,8 @@ class AppText {
   static const signup = 'Sign Up';
   static const required = 'Required';
   static const notValid = 'Not Valid';
-  static const firstName = 'First Name';
-  static const lastName = 'Last Name';
+  static const Name = 'Name';
+ // static const lastName = 'Last Name';
 
   static const confirmPassword = 'Confirm Password';
   static const passwordsDoNotMatch = 'Passwords Do Not Match';
