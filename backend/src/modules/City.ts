@@ -10,10 +10,8 @@ export async function getCitiesHandler(req: Request, res: Response) {
       data: cities,
     });
   } catch (error) {
-    console.error("getCitiesHandler error:", error);
     return res.status(500).json({ message: "Internal server error" });
   }
-  console.log("getCitiesHandler executed successfully");  
 }
 
 export async function createCityHandler(req: Request, res: Response) {
@@ -30,7 +28,6 @@ export async function createCityHandler(req: Request, res: Response) {
       data: newCity,
     });
   } catch (error) {
-    console.error("createCityHandler error:", error);
     return res.status(500).json({ message: "Internal server error" });
   }
 }
