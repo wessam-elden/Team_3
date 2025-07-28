@@ -44,6 +44,7 @@ class _SettingsState extends State<Settings> {
         ),
         SettingsSection(
           name: name,
+          onEditName: _editName,
         ),
       ],
     );
