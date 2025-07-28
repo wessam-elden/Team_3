@@ -49,7 +49,6 @@ class _ProfileState extends State<Profile> {
             return SafeArea(
               child: Column(
                 children: [
-                  const SizedBox(height: 30),
                   UserProfileHeader(user: user),
                   const SizedBox(height: 5),
                   const Padding(
@@ -58,7 +57,7 @@ class _ProfileState extends State<Profile> {
                   ),
                   UserStatsCard(title: AppText.visits, value: user.visits.toString()),
                   const SizedBox(height: 5),
-                  UserStatsCard(title: AppText.visits, value: user.favorites.toString()),
+                  UserStatsCard(title: AppText.favorites, value: user.favorites.toString()),
                 ],
               ),
             );

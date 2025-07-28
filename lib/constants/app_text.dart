@@ -81,6 +81,7 @@ class AppText {
   static const selectGender = 'Select Gender';
   static const male = 'Male';
   static const female = 'Female';
+  static const name = 'Name';
 
   //profile
   static const visits = 'Visits';

@@ -3,38 +3,25 @@ import 'package:maporia/constants/app_colors.dart';
 import 'package:maporia/constants/app_text.dart';
 
 class EditNameDialog extends StatelessWidget {
-  final String Name;
-  //final String lastName;
+  final String name;
 
   const EditNameDialog({
     super.key,
-    required this.Name,
-    //required this.lastName,
+    required this.name,
   });
 
   @override
   Widget build(BuildContext context) {
-    final NameController = TextEditingController(text: Name);
-   // final lastNameController = TextEditingController(text: lastName);
+    final nameController = TextEditingController(text: name);
 
     return AlertDialog(
       title: const Text(
         AppText.editName,
         style: TextStyle(color: AppColors.brown),
       ),
-      content: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          TextField(
-            controller: NameController,
-            decoration: _inputDecoration(AppText.Name),
-          ),
-          const SizedBox(height: 10),
-          // TextField(
-          //   controller: lastNameController,
-          //   decoration: _inputDecoration(AppText.lastName),
-          // ),
-        ],
+      content: TextField(
+        controller: nameController,
+        decoration: _inputDecoration(AppText.name),
       ),
       actions: [
         TextButton(
@@ -43,10 +30,7 @@ class EditNameDialog extends StatelessWidget {
         ),
         TextButton(
           onPressed: () {
-            Navigator.pop(context, {
-              'Name': NameController.text,
-              //'lastName': lastNameController.text,
-            });
+            Navigator.pop(context, nameController.text);
           },
           child: const Text(AppText.save, style: TextStyle(color: AppColors.brown)),
         ),

@@ -1,85 +1,91 @@
 import 'package:flutter/material.dart';
-import 'package:maporia/constants/app_colors.dart';
-import 'package:maporia/presentation/screens/place_info.dart';
 
-class PlaceCard extends StatelessWidget {
-  final Map<String, String> place;
+class PlaceInfo extends StatelessWidget {
+  final String title;
+  final String description;
+  final String image;
+  final List<String> gallery;
 
-  const PlaceCard({super.key, required this.place});
+  const PlaceInfo({
+    super.key,
+    required this.title,
+    required this.description,
+    required this.image,
+    required this.gallery,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (_) => PlaceInfo(
-              title: place['title']!,
-              description: place['description']!,
-              image: place['image']!,
-              place: {},
-            ),
-          ),
-        );
-      },
-      child: Card(
-        margin: const EdgeInsets.only(bottom: 16),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(16),
-        ),
+    final List<String> allImages = [image, ...gallery];
+
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: SafeArea(
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _buildImage(),
-            _buildTextContent(),
+            SizedBox(
+              height: 260,
+              child: PageView.builder(
+                itemCount: allImages.length,
+                scrollDirection: Axis.horizontal,
+                itemBuilder: (context, index) {
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(20),
+                      child: Image.asset(
+                        allImages[index],
+                        width: double.infinity,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ),
+            const SizedBox(height: 24),
+            Expanded(
+              child: Container(
+                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
+                decoration: BoxDecoration(
+                  color: Colors.grey[100],
+                  borderRadius: const BorderRadius.vertical(top: Radius.circular(30)),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.1),
+                      blurRadius: 10,
+                      offset: const Offset(0, -3),
+                    ),
+                  ],
+                ),
+                child: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        title,
+                        style: const TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.brown,
+                        ),
+                      ),
+                      const SizedBox(height: 16),
+                      Text(
+                        description,
+                        style: const TextStyle(
+                          fontSize: 16,
+                          color: Colors.black87,
+                          height: 1.5,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
           ],
         ),
-      ),
-    );
-  }
-
-  Widget _buildImage() {
-    return ClipRRect(
-      borderRadius: const BorderRadius.vertical(
-        top: Radius.circular(20),
-      ),
-      child: Image.network(
-        place['image']!,
-        height: 150,
-        width: double.infinity,
-        fit: BoxFit.cover,
-      ),
-    );
-  }
-
-  Widget _buildTextContent() {
-    return Container(
-      color: AppColors.white,
-      width: double.infinity,
-      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 12),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            place['title']!,
-            textAlign: TextAlign.start,
-            style: const TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-              color: AppColors.brown,
-            ),
-          ),
-          const SizedBox(height: 6),
-          Text(
-            place['description']!,
-            textAlign: TextAlign.start,
-            style: const TextStyle(
-              color: AppColors.chestnutBrown,
-              fontSize: 14,
-            ),
-          ),
-        ],
       ),
     );
   }
