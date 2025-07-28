@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
 
+import '../../models.dart/landmark_model.dart';
+
 class PlaceInfo extends StatelessWidget {
   final String title;
   final String description;
   final String image;
+  final Landmark place;
 
   const PlaceInfo({
     super.key,
     required this.title,
     required this.description,
-    required this.image,
-    required Map<String, String> place,
+    required this.image, required this.place,
   });
 
   @override

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:maporia/constants/app_colors.dart';
 import 'package:maporia/presentation/screens/place_info.dart';
-
+import '../../../../models.dart/landmark_model.dart';
 
 class PlaceCard extends StatelessWidget {
-  final Map<String, String> place;
+  final Landmark place;
 
   const PlaceCard({super.key, required this.place});
 
@@ -18,10 +18,10 @@ class PlaceCard extends StatelessWidget {
             context,
             MaterialPageRoute(
               builder: (_) => PlaceInfo(
-                title: place['title']!,
-                description: place['description']!,
-                image: place['image']!,
-                place: {},
+                title: place.name,
+                description: place.description ?? 'No description',
+                image: place.imageUrl ?? '',
+                place: place,
               ),
             ),
           );
@@ -37,8 +37,15 @@ class PlaceCard extends StatelessWidget {
               children: [
                 ClipRRect(
                   borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
-                  child: Image.asset(
-                    place['image']!,
+                  child: place.imageUrl != null && place.imageUrl!.isNotEmpty
+                      ? Image.network(
+                    place.imageUrl!,
+                    width: double.infinity,
+                    height: 150,
+                    fit: BoxFit.cover,
+                  )
+                      : Image.asset(
+                    'assets/images/placeholder.jpg', // صورة بديلة في حالة عدم وجود صورة
                     width: double.infinity,
                     height: 150,
                     fit: BoxFit.cover,
@@ -50,7 +57,7 @@ class PlaceCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        place['title']!,
+                        place.name,
                         style: const TextStyle(
                           fontSize: 15,
                           fontWeight: FontWeight.bold,
@@ -59,7 +66,9 @@ class PlaceCard extends StatelessWidget {
                       ),
                       const SizedBox(height: 6),
                       Text(
-                        place['description']!,
+                        place.description ?? 'No description available',
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
                         style: const TextStyle(color: AppColors.brown, fontSize: 13),
                       ),
                     ],

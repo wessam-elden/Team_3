@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:maporia/constants/app_colors.dart';
 import 'package:maporia/constants/app_text.dart';
 import 'package:maporia/presentation/screens/places_screen/places.dart';
+import '../../../../models.dart/landmark_model.dart';
 import 'place_card.dart';
 
 
 class TopPlacesSection extends StatelessWidget {
-  final List<Map<String, String>> places;
+  final List<Landmark> places;
   final ScrollController scrollController;
   final VoidCallback onScrollLeft;
   final VoidCallback onScrollRight;

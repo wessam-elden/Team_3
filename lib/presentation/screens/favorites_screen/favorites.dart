@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:maporia/constants/app_colors.dart';
 import 'package:maporia/constants/app_text.dart';
-import 'package:maporia/presentation/screens/place_info.dart';
 import 'package:maporia/presentation/screens/favorites_screen/favorites_widgets/favorite_card.dart';
+
+import '../../../models.dart/landmark_model.dart';
+import '../place_info.dart';
 
 
 class FavoritesPage extends StatefulWidget {
@@ -13,23 +15,32 @@ class FavoritesPage extends StatefulWidget {
 }
 
 class _FavoritePlacesPageState extends State<FavoritesPage> {
-  // will be removed after the API integration
-  List<Map<String, String>> favoritePlaces = [
-    {
-      'title': 'The Great Pyramid of Giza',
-      'description': 'The last remaining wonder of the ancient world.',
-      'image': 'assets/images/pyramids.jpg',
-    },
-    {
-      'title': 'Luxor Temple',
-      'description': 'An ancient Egyptian temple complex located on the east bank of the Nile.',
-      'image': 'assets/images/karnak.jpg',
-    },
-    {
-      'title': 'Abu Simbel Temples',
-      'description': 'Massive rock temples built by Pharaoh Ramses II.',
-      'image': 'assets/images/abusimbel.jpg',
-    },
+  List<Landmark> favoritePlaces = [
+    Landmark(
+      id: 1,
+      name: 'The Great Pyramid of Giza',
+      description: 'The last remaining wonder of the ancient world.',
+      imageUrl: 'assets/images/pyramids.jpg',
+      location: 'Giza, Egypt',
+      cityId: 1,
+
+    ),
+    Landmark(
+      id: 2,
+      name: 'Luxor Temple',
+      description: 'An ancient Egyptian temple complex located on the east bank of the Nile.',
+      imageUrl: 'assets/images/karnak.jpg',
+      location: 'Luxor, Egypt',
+      cityId: 2,
+    ),
+    Landmark(
+      id: 3,
+      name: 'Abu Simbel Temples',
+      description: 'Massive rock temples built by Pharaoh Ramses II.',
+      imageUrl: 'assets/images/abusimbel.jpg',
+      location: 'Aswan, Egypt',
+      cityId: 3,
+    ),
   ];
 
   void removeFromFavorites(int index) {
@@ -38,14 +49,15 @@ class _FavoritePlacesPageState extends State<FavoritesPage> {
     });
   }
 
-  void goToDetails(Map<String, String> place) {
+  void goToDetails(Landmark place)
+  {
     Navigator.push(
       context,
       MaterialPageRoute(
         builder: (_) => PlaceInfo(
-          title: place['title']!,
-          description: place['description']!,
-          image: place['image']!,
+          title: place.name,
+          description: place.description ?? '',
+          image: place.imageUrl ?? '',
           place: place,
         ),
       ),
