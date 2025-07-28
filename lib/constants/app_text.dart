@@ -14,15 +14,15 @@ class AppText {
   static const email = 'Email';
   static const password = 'Password';
   static const enterEmail = 'Please enter your email';
-  static const invalidEmail = 'Invalid email format';
+  static const invalidEmail = 'Invalid Email format';
   static const enterPassword = 'Please Enter Your password';
 
   //signup
   static const signup = 'Sign Up';
   static const required = 'Required';
   static const notValid = 'Not Valid';
-  static const Name = 'Name';
- // static const lastName = 'Last Name';
+  static const continueWithGoogle = 'Continue with Google';
+
 
   static const confirmPassword = 'Confirm Password';
   static const passwordsDoNotMatch = 'Passwords Do Not Match';
@@ -81,6 +81,7 @@ class AppText {
   static const selectGender = 'Select Gender';
   static const male = 'Male';
   static const female = 'Female';
+  static const name = 'Name';
 
   //profile
   static const visits = 'Visits';

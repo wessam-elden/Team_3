@@ -78,15 +78,9 @@ class Signup extends StatelessWidget {
                   right: 60, left: 60, bottom: 10, top: 10),
               child: Divider(color: AppColors.brown, thickness: 0.5,),
             ),
-            TextContainer(
-                text:  AppText.continueWith,
-                fontSize: 16,
-                textAlign: TextAlign.center,
-                fontWeight: FontWeight.w400
-            ),
-            SizedBox(height: height * 0.02,),
+            SizedBox(height: height * 0.01,),
             SignWith(),
-            SizedBox(height: height * 0.03,),
+            SizedBox(height: height * 0.02,),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [

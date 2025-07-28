@@ -18,20 +18,24 @@ class PlaceInfo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
-          Image.asset(
-            image,
-            width: double.infinity,
-            height: 250,
-            fit: BoxFit.cover,
+      body: SafeArea(
+        child: Center(
+          child: Column(
+            children: [
+              Image.asset(
+                image,
+                width: double.infinity,
+                height: 250,
+                fit: BoxFit.cover,
+              ),
+              const SizedBox(height: 16),
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Text(description, style: const TextStyle(fontSize: 18)),
+              ),
+            ],
           ),
-          const SizedBox(height: 16),
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Text(description, style: const TextStyle(fontSize: 18)),
-          ),
-        ],
+        ),
       ),
     );
   }
