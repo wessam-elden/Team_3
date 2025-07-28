@@ -2,8 +2,7 @@
 import { Request, Response } from "express";
 import { createUser, getUserByEmail } from "../Repos/userRepo";
 import { comparePassword, hashPassword } from "../utilites/hash";
-import { generateToken, verifyToken } from "../utilites/jwt";
-import { hash } from "bcryptjs";
+import { generateToken } from "../utilites/jwt";
 import { AuthRequest } from "../middlewares/auth";
 
 export async function signup(req: Request, res: Response) {
@@ -90,13 +89,26 @@ export async function getProfile(req: AuthRequest, res: Response) {
       return res.status(404).json({ message: "User not found" });
     }
 
+    // Only return selected safe fields
+    const { id, name, email: safeEmail, role, isVerified,country,phone_number } = user;
+
     return res.status(200).json({
       success: true,
       message: "User profile fetched successfully",
-      data: user,
+      data: {
+        id,
+        name,
+        email: safeEmail,
+        role,
+        isVerified,
+        country,
+        phone_number
+        
+      },
     });
   } catch (error) {
     console.error("getProfile error:", error);
     return res.status(500).json({ message: "Internal server error" });
   }
 }
+
