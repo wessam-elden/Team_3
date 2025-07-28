@@ -72,7 +72,7 @@ class _LoginState extends State<Login> {
                 fontSize: 18
             ),
             SizedBox(height: height * 0.03,),
-          LoginForm(formKey: cubit.logInFormKey),
+            LoginForm(formKey: cubit.logInFormKey),
             Container(
               width: double.infinity,
               child: Padding(
@@ -108,19 +108,12 @@ class _LoginState extends State<Login> {
                 }
               },
                 ),
-                SizedBox(height: height * 0.03,),
-                Padding(
-                padding: const EdgeInsets.only(
-                right: 60, left: 60, bottom: 10, top: 10),
-                child: Divider(color: AppColors.brown, thickness: 0.5,),
-                ),
-                TextContainer(
-                text: AppText.continueWith,
-                fontSize: 16,
-                textAlign: TextAlign.center,
-                fontWeight: FontWeight.w400
-            ),
             SizedBox(height: height * 0.02,),
+            Padding(
+              padding: const EdgeInsets.only(right: 60, left: 60, bottom: 10, top: 10),
+                child: Divider(color: AppColors.brown, thickness: 0.5,),
+            ),
+            SizedBox(height: height * 0.015,),
             SignWith(),
             SizedBox(height: height * 0.03,),
             Row(

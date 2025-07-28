@@ -13,13 +13,15 @@ class Places extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.ivoryWhite,
-      body: ListView.builder(
-        padding: const EdgeInsets.all(16),
-        itemCount: places.length,
-        itemBuilder: (context, index) {
-          final place = places[index];
-          return PlaceCard(place: place);
-        },
+      body: SafeArea(
+        child: ListView.builder(
+          padding: const EdgeInsets.only(left: 15),
+          itemCount: places.length,
+          itemBuilder: (context, index) {
+            final place = places[index];
+            return PlaceCard(place: place);
+          },
+        ),
       ),
     );
   }
