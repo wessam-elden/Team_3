@@ -44,7 +44,7 @@ class _MaporiaAppState extends State<MaporiaApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: Onboarding.routeName,
+      initialRoute: Home.routeName,
       routes: {
         Onboarding.routeName: (context) => const Onboarding(),
         Login.routeName: (context) => Login(),

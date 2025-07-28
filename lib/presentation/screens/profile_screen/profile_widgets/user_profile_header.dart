@@ -18,7 +18,8 @@ class _UserProfileHeaderState extends State<UserProfileHeader> {
   File? _imageFile;
 
   Future<void> _pickImage() async {
-    final pickedImage = await ImagePicker().pickImage(source: ImageSource.gallery);
+    final pickedImage = await ImagePicker().pickImage(
+        source: ImageSource.gallery);
     if (pickedImage != null) {
       setState(() {
         _imageFile = File(pickedImage.path);
@@ -64,30 +65,6 @@ class _UserProfileHeaderState extends State<UserProfileHeader> {
               ),
             ),
           ],
-        ),
-        const SizedBox(height: 16),
-        Text(
-          widget.user.name,
-          style: const TextStyle(
-            fontSize: 24,
-            fontWeight: FontWeight.bold,
-            color: AppColors.brown,
-          ),
-        ),
-        Text(
-          widget.user.email,
-          style: const TextStyle(
-            color: AppColors.brown,
-            fontSize: 15,
-          ),
-        ),
-        const SizedBox(height: 2),
-        Text(
-          widget.user.gender,
-          style: const TextStyle(
-            color: AppColors.brown,
-            fontSize: 15,
-          ),
         ),
       ],
     );
