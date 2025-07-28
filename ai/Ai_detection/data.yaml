@@ -1,0 +1,13 @@
+train: C:/Users/Tech/Desktop/Egypt/train/images
+val: C:/Users/Tech/Desktop/Egypt/valid/images
+test: C:/Users/Tech/Desktop/Egypt/test/images
+
+nc: 23
+names: ['Akhenaten', 'Bent-pyramid-for-senefru', 'Colossal-Statue-of-Ramesses-II', 'Colossoi-of-Memnon', 'Goddess-Isis-with-her-child', 'Hatshepsut', 'Hatshepsut-face', 'Khafre-Pyramid', 'Mask-of-Tutankhamun', 'Nefertiti', 'Pyramid_of_Djoser', 'Ramessum', 'Ramses-II-Red-Granite-Statue', 'Statue-of-King-Zoser', 'Statue-of-Tutankhamun-with-Ankhesenamun', 'Temple_of_Isis_in_Philae', 'Temple_of_Kom_Ombo', 'The-Great-Temple-of-Ramesses-II', 'amenhotep-iii-and-tiye', 'bust-of-ramesses-ii', 'menkaure-pyramid', 'sphinx' ,'person']
+
+roboflow:
+  workspace: go-gvvsy
+  project: egypt-landmarks-vwaim
+  version: 1
+  license: CC BY 4.0
+  url: https://universe.roboflow.com/go-gvvsy/egypt-landmarks-vwaim/dataset/1
