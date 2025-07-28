@@ -3,19 +3,19 @@ import 'package:maporia/constants/app_colors.dart';
 import 'package:maporia/constants/app_text.dart';
 
 class EditNameDialog extends StatelessWidget {
-  final String firstName;
-  final String lastName;
+  final String Name;
+  //final String lastName;
 
   const EditNameDialog({
     super.key,
-    required this.firstName,
-    required this.lastName,
+    required this.Name,
+    //required this.lastName,
   });
 
   @override
   Widget build(BuildContext context) {
-    final firstNameController = TextEditingController(text: firstName);
-    final lastNameController = TextEditingController(text: lastName);
+    final NameController = TextEditingController(text: Name);
+   // final lastNameController = TextEditingController(text: lastName);
 
     return AlertDialog(
       title: const Text(
@@ -26,14 +26,14 @@ class EditNameDialog extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           TextField(
-            controller: firstNameController,
-            decoration: _inputDecoration(AppText.firstName),
+            controller: NameController,
+            decoration: _inputDecoration(AppText.Name),
           ),
           const SizedBox(height: 10),
-          TextField(
-            controller: lastNameController,
-            decoration: _inputDecoration(AppText.lastName),
-          ),
+          // TextField(
+          //   controller: lastNameController,
+          //   decoration: _inputDecoration(AppText.lastName),
+          // ),
         ],
       ),
       actions: [
@@ -44,8 +44,8 @@ class EditNameDialog extends StatelessWidget {
         TextButton(
           onPressed: () {
             Navigator.pop(context, {
-              'firstName': firstNameController.text,
-              'lastName': lastNameController.text,
+              'Name': NameController.text,
+              //'lastName': lastNameController.text,
             });
           },
           child: const Text(AppText.save, style: TextStyle(color: AppColors.brown)),

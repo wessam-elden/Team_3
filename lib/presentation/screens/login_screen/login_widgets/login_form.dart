@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:maporia/constants/app_colors.dart';
 import 'package:maporia/constants/app_text.dart';
+
+import '../../../../cubit/user_cubit.dart';
 
 class LoginForm extends StatefulWidget {
   final GlobalKey<FormState> formKey;
@@ -12,8 +15,7 @@ class LoginForm extends StatefulWidget {
 
 class _LoginFormState extends State<LoginForm> {
   bool isVisible = false;
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
+
 
   String? _validateEmail(String? value) {
     if (value == null || value.trim().isEmpty) {
@@ -35,13 +37,14 @@ class _LoginFormState extends State<LoginForm> {
 
   @override
   Widget build(BuildContext context) {
+    final cubit = context.read<UserCubit>();
     return Form(
       key: widget.formKey,
       child: Column(
         children: [
           //email
           TextFormField(
-            controller: _emailController,
+            controller: cubit.logInEmail,
             validator: _validateEmail,
             cursorColor: AppColors.brown,
             cursorErrorColor: AppColors.red,
@@ -70,7 +73,7 @@ class _LoginFormState extends State<LoginForm> {
           SizedBox(height: 20),
           //password
           TextFormField(
-            controller: _passwordController,
+            controller: cubit.logInPassword,
             validator: _validatePassword,
             obscureText: !isVisible,
             cursorColor: AppColors.brown,

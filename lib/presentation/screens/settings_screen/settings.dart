@@ -15,22 +15,22 @@ class Settings extends StatefulWidget {
 
 class _SettingsState extends State<Settings> {
   //will be changed according to the user's names
-  String firstName = "Ghada";
-  String lastName = "Abou-El-Fadl";
+  String Name = "Ghada";
+  //String lastName = "Abou-El-Fadl";
 
   void _editName() async {
     final result = await showDialog<Map<String, String>>(
       context: context,
       builder: (context) => EditNameDialog(
-        firstName: firstName,
-        lastName: lastName,
+        Name: Name,
+        //lastName: lastName,
       ),
     );
 
     if (result != null) {
       setState(() {
-        firstName = result['firstName']!;
-        lastName = result['lastName']!;
+        Name = result['Name']!;
+       // lastName = result['lastName']!;
       });
     }
   }
@@ -47,8 +47,8 @@ class _SettingsState extends State<Settings> {
           ),
         ),
         SettingsSection(
-          firstName: firstName,
-          lastName: lastName,
+          Name: Name,
+          //lastName: lastName,
           onEditName: _editName,
         ),
       ],

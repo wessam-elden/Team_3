@@ -6,14 +6,14 @@ import 'package:maporia/presentation/screens/password_configuration/reset_passwo
 import 'package:maporia/presentation/screens/settings_screen/settings_widgets/build_card.dart';
 
 class SettingsSection extends StatefulWidget {
-  final String firstName;
-  final String lastName;
+  final String Name;
+  //final String lastName;
   final VoidCallback onEditName;
 
   const SettingsSection({
     super.key,
-    required this.firstName,
-    required this.lastName,
+    required this.Name,
+    //required this.lastName,
     required this.onEditName,
   });
 
@@ -33,7 +33,7 @@ class _SettingsSectionState extends State<SettingsSection> {
         BuildCard(
           icon: Icons.face,
           title: AppText.username,
-          subtitle: Text('${widget.firstName} ${widget.lastName}', style: TextStyle(color: AppColors.lightCocoa)),
+          subtitle: Text('${widget.Name} /*{widget.lastName}*/', style: TextStyle(color: AppColors.lightCocoa)),
           trailingIcon: Icons.edit,
           onTap: widget.onEditName,
         ),

@@ -50,35 +50,35 @@ class _SignUpFormState extends State<SignUpForm> {
                           return null;
                         },
                         onChanged: (_){},
-                        hintText: AppText.firstName,
+                        hintText: AppText.Name,
                         obscureText: false,
                         helperText: null,
                         helperStyle: null,
                         suffixIcon: null,
                     ),
                   ),
-                  const SizedBox(width: 10,),
+                 // const SizedBox(width: 10,),
                   //last name
-                  Expanded(
-                    child: CustomTextField(
-                        controller: null,
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return AppText.required;
-                          }
-                          if (!RegExp(r'^[A-Za-z]+( [A-Za-z]+)*$').hasMatch(value)) {
-                            return AppText.notValid;
-                          }
-                          return null;
-                        },
-                        onChanged: (_){},
-                        hintText: AppText.lastName,
-                        obscureText: false,
-                        helperText: null,
-                        helperStyle: null,
-                        suffixIcon: null
-                    ),
-                  )
+                  // Expanded(
+                  //   child: CustomTextField(
+                  //       controller: null,
+                  //       validator: (value) {
+                  //         if (value == null || value.isEmpty) {
+                  //           return AppText.required;
+                  //         }
+                  //         if (!RegExp(r'^[A-Za-z]+( [A-Za-z]+)*$').hasMatch(value)) {
+                  //           return AppText.notValid;
+                  //         }
+                  //         return null;
+                  //       },
+                  //       onChanged: (_){},
+                  //       hintText: AppText.lastName,
+                  //       obscureText: false,
+                  //       helperText: null,
+                  //       helperStyle: null,
+                  //       suffixIcon: null
+                  //   ),
+                  // )
                 ]
             ),
             const SizedBox(height: 15),
