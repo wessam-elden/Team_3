@@ -14,4 +14,5 @@ export interface User extends RowDataPacket {
     phone_number: string;
     role: 'TOURIST' | 'GUIDE' | 'ADMIN';
     verification_code?: string;
+    OTP_date?: Date;
 }

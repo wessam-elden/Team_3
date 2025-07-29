@@ -38,7 +38,6 @@ export async function signup(req: Request, res: Response) {
       provider_id: 0,
       phone_number: "",
       role: "TOURIST",
-      verification_code: Math.floor(1000 + Math.random() * 9000).toString(),
     });
 
     res.status(201).json({ message: "User created successfully" });
