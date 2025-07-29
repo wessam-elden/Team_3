@@ -6,10 +6,10 @@ import { requireAdmin } from "../middlewares/adminauth";
 const router = express.Router();
 
 // GET all landmarks
-router.get("/all", getAllLandmarksHandler);
+router.get("/all",verifyTokenMiddleware, getAllLandmarksHandler);
 
 // GET landmarks by city ID
-router.get("/by-city/:cityId", getLandmarkesByCityHandler);
+router.get("/by-city/:cityId",verifyTokenMiddleware, getLandmarkesByCityHandler);
 
 router.post("/create",verifyTokenMiddleware,requireAdmin, createLandmarkHandler);
 export default router;

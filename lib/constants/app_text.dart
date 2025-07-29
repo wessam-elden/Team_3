@@ -72,6 +72,7 @@ class AppText {
 
   //settings
   static const editName = 'Edit Name';
+  static const enterNewName = 'Enter new name';
   static const cancel = 'Cancel';
   static const save = 'Save';
   static const username = 'Username';
@@ -82,15 +83,25 @@ class AppText {
   static const male = 'Male';
   static const female = 'Female';
   static const name = 'Name';
+  static const enterYourPhone = "Please enter your phone number";
+  static const invalidPhoneNumber ='Invalid phone number format';
+  static const invalidName = 'Please enter a valid name';
+  static const invalidNameForm = 'Name must contain only letters';
 
+  static const addNumber = 'Add Number';
+  static const selectCountry = 'Select Country';
   //profile
   static const visits = 'Visits';
   static const profileError = 'An error occurred while loading data';
   static const profileHasNoDate = 'There is no data available';
+  static const editPhone = 'Edit Phone';
+  static const enterPhoneNumber = 'Enter phone number';
+  static const phone = 'Phone';
+  static const country = 'Country';
+  static const role = 'Role';
 
   //favorites
   static const emptyFav = 'No favorite places yet.';
-
 
 
 

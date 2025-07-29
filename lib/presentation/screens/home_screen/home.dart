@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:maporia/constants/app_colors.dart';
+import 'package:maporia/cubit/user_cubit.dart';
 import 'package:maporia/presentation/screens/all_places.dart';
 import 'package:maporia/cubit/user_state.dart';
+import 'package:maporia/models.dart/createCity_model.dart';
+import 'package:maporia/models.dart/landmark_model.dart';
 import 'package:maporia/presentation/screens/home_screen/home_widgets/custom_bottom_nav_bar.dart';
 import 'package:maporia/presentation/screens/home_screen/home_widgets/bot_button.dart';
 import 'package:maporia/presentation/screens/home_screen/home_widgets/city_selector.dart';
@@ -24,13 +27,8 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-
-  //static until the api integration
   List<City> cities = [];
   City? selectedCity;
-  List<Landmark> landmarks = [];
-
-
   String searchQuery = '';
   Offset _botOffset = const Offset(20, 100);
   final ScrollController _scrollController = ScrollController();
@@ -40,7 +38,11 @@ class _HomeState extends State<Home> {
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      context.read<UserCubit>().getAllCities();
+    });
     context.read<UserCubit>().getAllCities();
+
     _scrollController.addListener(() {
       setState(() {
         _canScrollLeft = _scrollController.offset > 0;
@@ -82,18 +84,7 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-
-    // final filteredPlaces =
-    //     cityPlaces[selectedCity]!
-    //         .where(
-    //           (place) => place['title']!.toLowerCase().contains(
-    //             searchQuery.toLowerCase(),
-    //           ),
-    //         )
-    //         .toList();
-    // final filteredPlaces = cityPlaces[selectedCity]!
-    //      .where((place) => place['title']!.toLowerCase().contains(searchQuery.toLowerCase()))
-    //      .toList();
+    List<Landmark> filteredPlaces = [];
 
     return Scaffold(
       backgroundColor: AppColors.ivoryWhite,
@@ -119,15 +110,9 @@ class _HomeState extends State<Home> {
                             return const Center(child: CircularProgressIndicator());
                           } else if (state is GetAllCitiesSuccess) {
                             cities = state.cities;
-                            selectedCity ??= cities.first;
-                            if (landmarks.isEmpty && selectedCity != null) {
+                            if (cities.isNotEmpty) {
+                              selectedCity ??= cities.first;
                               context.read<UserCubit>().getLandmarksByCityId(selectedCity!.id);
-                            }
-                          }
-                          else if (state is GetAllCitiesFailure) {
-                            return Text(state.errMessage, style: TextStyle(color: Colors.red));
-                          }
-
 
                           return CitySelector(
                             cities: cities,
@@ -138,10 +123,11 @@ class _HomeState extends State<Home> {
                               });
                               context.read<UserCubit>().getLandmarksByCityId(value.id);
                             },
+
                           );
 
-                        },
-                      ),
+                        }
+                            );
                       const SizedBox(height: 16),
                       SearchField(
                         onChanged: (value) {
@@ -191,16 +177,15 @@ class _HomeState extends State<Home> {
                           style: TextStyle(color: Colors.white),
                         ),
                         onPressed: () {
-                          // Navigator.push(
-                          //   context,
-                          //   MaterialPageRoute(
-                          //     builder:
-                          //         (_) => AllPlacesPage(
-                          //           places: cityPlaces[selectedCity]!,
-                          //           isAdmin: true, // ← اعتبره Admin هنا
-                          //         ),
-                          //   ),
-                          //);
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) => AllPlacesPage(
+                                places: filteredPlaces,
+                                isAdmin: true,
+                              ),
+                            ),
+                          );
                         },
                       )
                     ],

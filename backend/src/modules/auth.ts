@@ -9,16 +9,17 @@ export async function signup(req: Request, res: Response) {
   try {
     const { email, password, name } = req.body;
 
-    if(
-  typeof email !== "string" ||
-  typeof password !== "string" ||
-  typeof name !== "string" ||
-  !email.trim() ||
-  !password.trim() ||
-  !name.trim()
-) {
-  return res.status(400).json({ message: "Missing or invalid required fields" });
-}
+    // Basic validation
+    if (
+      typeof email !== "string" ||
+      typeof password !== "string" ||
+      typeof name !== "string" ||
+      !email.trim() ||
+      !password.trim() ||
+      !name.trim()
+    ) {
+      return res.status(400).json({ message: "Missing or invalid required fields" });
+    }
 
     const existing = await getUserByEmail(email);
     if (existing) {
@@ -31,13 +32,12 @@ export async function signup(req: Request, res: Response) {
       email,
       password: hashed,
       name,
-      country: "", // Optional default values if needed
+      country: "", // Optional default value
       isverified: false,
-      provider: "GOOGLE", // Or default
+      provider: "GOOGLE",
       provider_id: 0,
       phone_number: "",
       role: "TOURIST",
-      verification_code: Math.floor(1000 + Math.random() * 9000).toString(),
     });
 
     res.status(201).json({ message: "User created successfully" });
@@ -46,6 +46,7 @@ export async function signup(req: Request, res: Response) {
     res.status(500).json({ message: "Internal server error" });
   }
 }
+
 
 export async function login(req: Request, res: Response) {
   try {
