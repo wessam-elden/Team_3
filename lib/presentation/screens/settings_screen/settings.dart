@@ -37,10 +37,7 @@ class _SettingsState extends State<Settings> {
       children: [
         const Padding(
           padding: EdgeInsets.only(bottom: 20, left: 10),
-          child: TextContainer(
-            text: AppText.settings,
-            fontSize: 28,
-          ),
+          child: TextContainer(text: AppText.settings, fontSize: 28),
         ),
         SettingsSection(
           name: name,

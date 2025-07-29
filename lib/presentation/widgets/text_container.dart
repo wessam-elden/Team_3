@@ -17,6 +17,7 @@ class TextContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // ignore: sized_box_for_whitespace
     return Container(
       width: double.infinity,
       child: Text(

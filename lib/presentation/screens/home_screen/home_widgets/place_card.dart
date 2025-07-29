@@ -31,7 +31,9 @@ class PlaceCard extends StatelessWidget {
           margin: const EdgeInsets.only(right: 16),
           child: Card(
             color: AppColors.white,
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(16),
+            ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
