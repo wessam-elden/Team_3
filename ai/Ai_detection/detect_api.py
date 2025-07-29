@@ -7,8 +7,8 @@ from ultralytics import YOLO
 
 app = Flask(__name__)
 
-model = YOLO(r"c:\Users\Tech\Desktop\Egypt\EGYPTO0\weights\best.pt")
-with open(r"c:\Users\Tech\Desktop\Egypt\dis.json", "r", encoding="utf-8") as f:
+model = YOLO(r".\EGYPTO0\weights\best.pt")
+with open(r".\dis.json", "r", encoding="utf-8") as f:
     landmark_info = json.load(f)
 
 @app.route('/detect', methods=['POST'])

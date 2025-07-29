@@ -10,13 +10,13 @@ export async function createUser(user: Omit<User, "id" | "created_at">): Promise
 
   const query = `
     INSERT INTO user 
-    (email, password, name, country, isverified, provider, provider_id, phone_number, role, verification_code)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    (email, password, name, country, isverified, provider, provider_id, phone_number, role)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
   `;
 
   await pool.execute(query, [
     email, password, name, country, isverified, provider,
-    provider_id, phone_number, role, verification_code || null
+    provider_id, phone_number, role
   ]);
 }
 
