@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:maporia/constants/app_colors.dart';
 import 'package:maporia/constants/app_text.dart';
 import 'package:maporia/presentation/screens/favorites_screen/favorites_widgets/favorite_card.dart';
-
 import '../../../models.dart/landmark_model.dart';
 import '../place_info.dart';
 
@@ -68,24 +67,25 @@ class _FavoritePlacesPageState extends State<FavoritesPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.ivoryWhite,
-      body: favoritePlaces.isEmpty
-          ? const Center(
-        child: Text(
-          AppText.emptyFav,
-          style: TextStyle(color: AppColors.brown, fontSize: 18),
-        ),
-      )
-          : ListView.builder(
-        itemCount: favoritePlaces.length,
-        itemBuilder: (context, index) {
-          final place = favoritePlaces[index];
-          return FavoriteCard(
-            place: place,
-            onRemove: () => removeFromFavorites(index),
-            onTap: () => goToDetails(place),
-          );
-        },
-      ),
+      body:
+          favoritePlaces.isEmpty
+              ? const Center(
+                child: Text(
+                  AppText.emptyFav,
+                  style: TextStyle(color: AppColors.brown, fontSize: 18),
+                ),
+              )
+              : ListView.builder(
+                itemCount: favoritePlaces.length,
+                itemBuilder: (context, index) {
+                  final place = favoritePlaces[index];
+                  return FavoriteCard(
+                    place: place,
+                    onRemove: () => removeFromFavorites(index),
+                    onTap: () => goToDetails(place),
+                  );
+                },
+              ),
     );
   }
 }

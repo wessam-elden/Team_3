@@ -1,0 +1,240 @@
+[
+  {
+    "city": "Cairo",
+    "places": [
+      "The Egyptian Museum",
+      "Cairo Citadel (Saladin Citadel)",
+      "Mosque of Muhammad Ali",
+      "Al-Azhar Mosque",
+      "Khan El-Khalili Bazaar",
+      "Old Cairo (Coptic Cairo)",
+      "Al-Muizz Street",
+      "Mosque of Ibn Tulun",
+      "Gayer-Anderson Museum",
+      "Bayt Al-Suhaymi",
+      "Al-Hussein Mosque",
+      "Mosque of Amr ibn al-As",
+      "Hanging Church",
+      "Church of Saint Sergius and Bacchus",
+      "Coptic Museum"
+    ]
+  },
+  {
+    "city": "Giza",
+    "places": [
+      "Great Pyramid of Giza",
+      "Pyramid of Khafre",
+      "Pyramid of Menkaure",
+      "Great Sphinx of Giza",
+      "Solar Boat Museum",
+      "Grand Egyptian Museum (GEM)",
+      "Abu Rawash Pyramid"
+    ]
+  },
+  {
+    "city": "Luxor",
+    "places": [
+      "Karnak Temple",
+      "Luxor Temple",
+      "Valley of the Kings",
+      "Valley of the Queens",
+      "Medinet Habu",
+      "Tombs of the Nobles",
+      "Colossi of Memnon",
+      "Ramesseum",
+      "Deir el-Medina",
+      "Temple of Hatshepsut"
+    ]
+  },
+  {
+    "city": "Aswan",
+    "places": [
+      "Philae Temple",
+      "Abu Simbel Temples",
+      "Unfinished Obelisk",
+      "Elephantine Island",
+      "Aswan High Dam",
+      "Temple of Kalabsha",
+      "Aga Khan Mausoleum"
+    ]
+  },
+  {
+    "city": "Alexandria",
+    "places": [
+      "Bibliotheca Alexandrina",
+      "Qaitbay Citadel",
+      "Catacombs of Kom El Shoqafa",
+      "Pompey's Pillar",
+      "Roman Amphitheatre",
+      "Montaza Palace",
+      "Alexandria National Museum",
+      "Royal Jewelry Museum"
+    ]
+  },
+  {
+    "city": "Saqqara",
+    "places": [
+      "Step Pyramid of Djoser",
+      "Pyramid of Unas",
+      "Pyramid of Teti",
+      "Tomb of Ti",
+      "Serapeum of Saqqara"
+    ]
+  },
+  {
+    "city": "Dahshur",
+    "places": [
+      "Bent Pyramid",
+      "Red Pyramid",
+      "Black Pyramid",
+      "Pyramid of Sneferu"
+    ]
+  },
+  {
+    "city": "Faiyum",
+    "places": [
+      "Hawara Pyramid",
+      "Lahun Pyramid",
+      "Qasr Qarun",
+      "Wadi El-Hitan (Valley of the Whales)",
+      "Fayoum Oasis",
+      "Kom Oshim Museum"
+    ]
+  },
+  {
+    "city": "Minya",
+    "places": [
+      "Tuna el-Gebel",
+      "Beni Hassan Tombs",
+      "Ashmunein (Hermopolis)",
+      "Tell el-Amarna (Akhetaten)"
+    ]
+  },
+  {
+    "city": "Sohag",
+    "places": [
+      "Abydos Temple (Temple of Seti I)",
+      "Red Monastery",
+      "White Monastery",
+      "Beit Khallaf Tombs"
+    ]
+  },
+  {
+    "city": "Qena",
+    "places": [
+      "Dendera Temple Complex (Temple of Hathor)",
+      "Naqada archaeological site"
+    ]
+  },
+  {
+    "city": "Beni Suef",
+    "places": [
+      "Meidum Pyramid",
+      "Pyramid of Seila",
+      "Ihnasya El-Medina"
+    ]
+  },
+  {
+    "city": "Ismailia",
+    "places": [
+      "Ismailia Museum",
+      "Old Suez Canal Buildings"
+    ]
+  },
+  {
+    "city": "Port Said",
+    "places": [
+      "Suez Canal Authority Building",
+      "Port Said Military Museum"
+    ]
+  },
+  {
+    "city": "Suez",
+    "places": [
+      "Old Suez Canal Memorial",
+      "Port Tawfik Lighthouse"
+    ]
+  },
+  {
+    "city": "Beheira",
+    "places": [
+      "Rashid (Rosetta) Citadel",
+      "House of Amasyali",
+      "Rashid National Museum"
+    ]
+  },
+  {
+    "city": "Damietta",
+    "places": [
+      "Damietta Lighthouse",
+      "Historic mosques of Ezbet El-Borg"
+    ]
+  },
+  {
+    "city": "Sharqia",
+    "places": [
+      "Tel El-Dabaa (Avaris – Hyksos capital)",
+      "San El-Hagar (Tanis)"
+    ]
+  },
+  {
+    "city": "Kafr El Sheikh",
+    "places": [
+      "Buto (Tell el-Fara'in)",
+      "Basyoun Ruins"
+    ]
+  },
+  {
+    "city": "Monufia",
+    "places": [
+      "Mit Rahina (Memphis Ruins near Ashmoun)",
+      "Museum of Sadat"
+    ]
+  },
+  {
+    "city": "Gharbia",
+    "places": [
+      "Tanta Museum",
+      "El-Mahalla El-Kubra Historical Textile Sites"
+    ]
+  },
+  {
+    "city": "Matrouh",
+    "places": [
+      "Siwa Oasis",
+      "Temple of the Oracle of Amun",
+      "Shali Fortress"
+    ]
+  },
+  {
+    "city": "Red Sea",
+    "places": [
+      "Mons Porphyrites",
+      "Ancient Roman roads in Eastern Desert",
+      "Pharaoh’s Island Fortress"
+    ]
+  },
+  {
+    "city": "New Valley",
+    "places": [
+      "Kharga Oasis Temple",
+      "Dakhla Oasis Necropolis",
+      "El-Bagawat Christian Cemetery"
+    ]
+  },
+  {
+    "city": "North Sinai",
+    "places": [
+      "Tell El-Kedwa",
+      "Pelusium Ruins"
+    ]
+  },
+  {
+    "city": "South Sinai",
+    "places": [
+      "St. Catherine's Monastery",
+      "Mount Sinai",
+      "Nawamis Tombs"
+    ]
+  }
+]

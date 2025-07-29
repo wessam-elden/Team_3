@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:maporia/presentation/screens/createcity.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:maporia/core/api/api_dio/dio_consumer.dart';
@@ -14,7 +15,6 @@ import 'package:maporia/presentation/screens/profile_screen/profile.dart';
 import 'package:maporia/presentation/screens/settings_screen/settings.dart';
 import 'package:maporia/presentation/screens/signup_screen/signup.dart';
 
-void main() {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
@@ -25,6 +25,7 @@ void main() {
 
 class MaporiaApp extends StatefulWidget {
   const MaporiaApp({super.key});
+
 
   @override
   State<MaporiaApp> createState() => _MaporiaAppState();

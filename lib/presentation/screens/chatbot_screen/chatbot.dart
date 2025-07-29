@@ -51,10 +51,7 @@ class _ChatBotPageState extends State<ChatBotPage> {
                   },
                 ),
               ),
-              ChatInputField(
-                controller: _controller,
-                onSend: _sendMessage,
-              ),
+              ChatInputField(controller: _controller, onSend: _sendMessage),
             ],
           ),
         ],
