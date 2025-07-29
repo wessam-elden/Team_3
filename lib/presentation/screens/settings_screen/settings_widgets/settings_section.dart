@@ -1,5 +1,3 @@
-// import statements as in your last message...
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:maporia/constants/app_colors.dart';
@@ -27,6 +25,23 @@ class SettingsSection extends StatefulWidget {
 class _SettingsSectionState extends State<SettingsSection> {
   bool showCountryOptions = false;
 
+  final List<String> countries = [
+    'Egypt',
+    'France',
+    'United States',
+    'Germany',
+    'Italy',
+    'United Kingdom',
+    'Spain',
+    'Canada',
+    'Brazil',
+    'Saudi Arabia',
+    'United Arab Emirates',
+    'Turkey',
+    'Japan',
+    'China',
+    'India',
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -74,14 +89,14 @@ class _SettingsSectionState extends State<SettingsSection> {
           icon: Icons.phone,
           title: AppText.phone,
           subtitle: Text(
-            cubit.userPhone.isEmpty ? 'Add Number' : cubit.userPhone,
+            cubit.userPhone.isEmpty ? AppText.addNumber : cubit.userPhone,
             style: const TextStyle(color: AppColors.white),
           ),
           trailingIcon: Icons.edit,
           onTap: () => showDialog(
             context: context,
             builder: (_) => EditPhoneDialog(currentPhone: cubit.userPhone),
-          )
+          ),
         ),
         const SizedBox(height: 5),
 
@@ -90,7 +105,7 @@ class _SettingsSectionState extends State<SettingsSection> {
           icon: Icons.flag,
           title: AppText.country,
           subtitle: Text(
-            cubit.userCountry.isEmpty ? 'Select Country' : cubit.userCountry,
+            cubit.userCountry.isEmpty ? AppText.selectCountry : cubit.userCountry,
             style: const TextStyle(color: AppColors.white),
           ),
           trailingIcon: showCountryOptions ? Icons.arrow_drop_up : Icons.arrow_drop_down,
@@ -100,35 +115,25 @@ class _SettingsSectionState extends State<SettingsSection> {
             });
           },
         ),
+
         if (showCountryOptions)
           Column(
-            children: [
-              RadioListTile(
-                title: const Text("Egypt"),
-                value: "Egypt",
+            children: countries.map((country) {
+              return RadioListTile<String>(
+                title: Text(country),
+                value: country,
                 groupValue: cubit.userCountry,
                 activeColor: AppColors.brown,
                 onChanged: (value) {
-                  context.read<UserCubit>().updateUserInfo(country: value.toString());
+                  context.read<UserCubit>().updateUserInfo(country: value!);
                   setState(() {
                     showCountryOptions = false;
                   });
                 },
-              ),
-              RadioListTile(
-                title: const Text("France"),
-                value: "France",
-                groupValue: cubit.userCountry,
-                activeColor: AppColors.brown,
-                onChanged: (value) {
-                  context.read<UserCubit>().updateUserInfo(country: value.toString());
-                  setState(() {
-                    showCountryOptions = false;
-                  });
-                },
-              ),
-            ],
+              );
+            }).toList(),
           ),
+
         const SizedBox(height: 5),
 
         // logout
