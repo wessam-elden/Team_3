@@ -12,8 +12,6 @@ logs
 npm-debug.log*
 
 # Build output
-dist/
-build/
 
 # OS/System files
 .DS_Store
