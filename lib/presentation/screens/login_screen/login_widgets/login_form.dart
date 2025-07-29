@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-// ignore: unused_import
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:maporia/constants/app_colors.dart';
+
+import '../../../../cubit/user_cubit.dart';
 
 class LoginForm extends StatefulWidget {
   final GlobalKey<FormState> formKey;
@@ -41,12 +43,12 @@ class _LoginFormState extends State<LoginForm> {
 
   @override
   Widget build(BuildContext context) {
+    final cubit = context.read<UserCubit>();
     return Form(
       key: widget.formKey,
       child: Column(
         children: [
           TextFormField(
-            controller: widget.emailController,
             validator: _validateEmail,
             keyboardType: TextInputType.emailAddress,
             decoration: InputDecoration(
@@ -57,7 +59,7 @@ class _LoginFormState extends State<LoginForm> {
           ),
           SizedBox(height: 20),
           TextFormField(
-            controller: widget.passwordController,
+            controller: cubit.logInPassword,
             validator: _validatePassword,
             obscureText: !isVisible,
             decoration: InputDecoration(

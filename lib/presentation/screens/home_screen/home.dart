@@ -1,13 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:maporia/constants/app_colors.dart';
 import 'package:maporia/presentation/screens/all_places.dart';
+import 'package:maporia/cubit/user_state.dart';
 import 'package:maporia/presentation/screens/home_screen/home_widgets/custom_bottom_nav_bar.dart';
 import 'package:maporia/presentation/screens/home_screen/home_widgets/bot_button.dart';
 import 'package:maporia/presentation/screens/home_screen/home_widgets/city_selector.dart';
 import 'package:maporia/presentation/screens/home_screen/home_widgets/home_header_image.dart';
 import 'package:maporia/presentation/screens/home_screen/home_widgets/search_field.dart';
 import 'package:maporia/presentation/screens/home_screen/home_widgets/top_places_section.dart';
+
+import '../../../cubit/user_cubit.dart';
+import '../../../models.dart/createCity_model.dart';
+import '../../../models.dart/landmark_model.dart';
 
 class Home extends StatefulWidget {
   static const routeName = '/home';
@@ -18,62 +24,23 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  final List<String> cities = ['Cairo', 'Luxor', 'Alexandria', 'Aswan', 'Giza'];
-  String selectedCity = 'Cairo';
+
+  //static until the api integration
+  List<City> cities = [];
+  City? selectedCity;
+  List<Landmark> landmarks = [];
+
 
   String searchQuery = '';
   Offset _botOffset = const Offset(20, 100);
   final ScrollController _scrollController = ScrollController();
   bool _canScrollLeft = false;
-
-  final Map<String, List<Map<String, String>>> cityPlaces = {
-    'Cairo': [
-      {
-        'title': 'Pyramids',
-        'description': 'One of the ancient wonders of the world.',
-        'image': 'assets/images/pyramids.jpg',
-      },
-      {
-        'title': 'Citadel',
-        'description': 'Historic Islamic-era fortress in Cairo.',
-        'image': 'assets/images/qaitbay.jpg',
-      },
-    ],
-    'Giza': [
-      {
-        'title': 'Pyramids',
-        'description': 'One of the ancient wonders of the world.',
-        'image': 'assets/images/pyramids.jpg',
-      },
-    ],
-    'Luxor': [
-      {
-        'title': 'Karnak Temple',
-        'description': 'One of the largest ancient temples.',
-        'image': 'assets/images/karnak.jpg',
-      },
-    ],
-    'Alexandria': [
-      {
-        'title': 'Qaitbay Citadel',
-        'description': 'Historic fortress on the Mediterranean coast.',
-        'image': 'assets/images/qaitbay.jpg',
-      },
-    ],
-    'Aswan': [
-      {
-        'title': 'Philae Temple',
-        'description': 'Ancient temple complex in Aswan.',
-        'image': 'assets/images/philae.jpg',
-      },
-    ],
-  };
-
   final ImagePicker _picker = ImagePicker();
 
   @override
   void initState() {
     super.initState();
+    context.read<UserCubit>().getAllCities();
     _scrollController.addListener(() {
       setState(() {
         _canScrollLeft = _scrollController.offset > 0;
@@ -115,6 +82,7 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
+
     final filteredPlaces =
         cityPlaces[selectedCity]!
             .where(
@@ -123,6 +91,9 @@ class _HomeState extends State<Home> {
               ),
             )
             .toList();
+    // final filteredPlaces = cityPlaces[selectedCity]!
+    //     .where((place) => place['title']!.toLowerCase().contains(searchQuery.toLowerCase()))
+    //     .toList();
 
     return Scaffold(
       backgroundColor: AppColors.ivoryWhite,
@@ -142,13 +113,33 @@ class _HomeState extends State<Home> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      CitySelector(
-                        cities: cities,
-                        selectedCity: selectedCity,
-                        onChanged: (value) {
-                          setState(() {
-                            selectedCity = value;
-                          });
+                      BlocBuilder<UserCubit, UserState>(
+                        builder: (context, state) {
+                          if (state is GetAllCitiesLoading) {
+                            return const Center(child: CircularProgressIndicator());
+                          } else if (state is GetAllCitiesSuccess) {
+                            cities = state.cities;
+                            selectedCity ??= cities.first;
+                            if (landmarks.isEmpty && selectedCity != null) {
+                              context.read<UserCubit>().getLandmarksByCityId(selectedCity!.id);
+                            }
+                          }
+                          else if (state is GetAllCitiesFailure) {
+                            return Text(state.errMessage, style: TextStyle(color: Colors.red));
+                          }
+
+
+                          return CitySelector(
+                            cities: cities,
+                            selectedCity: selectedCity!,
+                            onChanged: (value) {
+                              setState(() {
+                                selectedCity = value;
+                              });
+                              context.read<UserCubit>().getLandmarksByCityId(value.id);
+                            },
+                          );
+
                         },
                       ),
                       const SizedBox(height: 16),
@@ -160,12 +151,30 @@ class _HomeState extends State<Home> {
                         },
                       ),
                       const SizedBox(height: 16),
-                      TopPlacesSection(
-                        places: filteredPlaces,
-                        scrollController: _scrollController,
-                        onScrollLeft: _scrollLeft,
-                        onScrollRight: _scrollRight,
-                        canScrollLeft: _canScrollLeft,
+                      BlocBuilder<UserCubit, UserState>(
+                        builder: (BuildContext context, UserState state) {
+                          List<Landmark> filteredPlaces = [];
+
+                          if (state is GetLandmarksByCityLoading) {
+                            return const Center(child: CircularProgressIndicator());
+                          } else if (state is GetLandmarksByCitySuccess) {
+                            filteredPlaces = state.landmarks
+                                .where((place) =>
+                                place.name.toLowerCase().contains(searchQuery.toLowerCase()))
+                                .toList();
+                          } else if (state is GetLandmarksByCityFailure) {
+                            return Text(state.errMessage, style: const TextStyle(color: Colors.red));
+                          }
+
+                          return TopPlacesSection(
+                            places: filteredPlaces,
+                            scrollController: _scrollController,
+                            onScrollLeft: _scrollLeft,
+                            onScrollRight: _scrollRight,
+                            canScrollLeft: _canScrollLeft,
+                          );
+
+                        },
                       ),
                       const SizedBox(height: 24),
                       ElevatedButton.icon(
@@ -193,7 +202,7 @@ class _HomeState extends State<Home> {
                             ),
                           );
                         },
-                      ),
+                      )
                     ],
                   ),
                 ),

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:maporia/constants/app_colors.dart';
+import '../../../../models.dart/landmark_model.dart';
 
 class FavoriteCard extends StatelessWidget {
-  final Map<String, String> place;
+  final Landmark place;
   final VoidCallback onTap;
   final VoidCallback onRemove;
 
@@ -26,19 +27,26 @@ class FavoriteCard extends StatelessWidget {
           contentPadding: const EdgeInsets.all(12),
           leading: ClipRRect(
             borderRadius: BorderRadius.circular(8),
-            child: Image.asset(
-              place['image']!,
+            child: place.imageUrl != null && place.imageUrl!.isNotEmpty
+                ? Image.asset(
+              place.imageUrl!,
+              width: 70,
+              height: 70,
+              fit: BoxFit.cover,
+            )
+                : Image.asset(
+              'assets/images/placeholder.jpg',
               width: 70,
               height: 70,
               fit: BoxFit.cover,
             ),
           ),
           title: Text(
-            place['title']!,
+            place.name,
             style: const TextStyle(color: AppColors.brown),
           ),
           subtitle: Text(
-            place['description']!,
+            place.description ?? 'No description',
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
             style: const TextStyle(color: AppColors.chestnutBrown),

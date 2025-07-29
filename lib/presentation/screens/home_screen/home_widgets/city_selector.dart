@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:maporia/constants/app_colors.dart';
 import 'package:maporia/constants/app_text.dart';
+import 'package:maporia/models.dart/createCity_model.dart';
 
 class CitySelector extends StatelessWidget {
-  final List<String> cities;
-  final String selectedCity;
-  final Function(String) onChanged;
+  final List<City> cities;
+  final City selectedCity;
+  final Function(City) onChanged;
 
   const CitySelector({
     super.key,
@@ -30,7 +31,7 @@ class CitySelector extends StatelessWidget {
         const Icon(Icons.flight_rounded, color: AppColors.chestnutBrown),
         const SizedBox(width: 16),
         Expanded(
-          child: DropdownButton<String>(
+          child: DropdownButton<City>(
             value: selectedCity,
             isExpanded: true,
             dropdownColor: AppColors.ivoryCream,
@@ -40,8 +41,7 @@ class CitySelector extends StatelessWidget {
             },
             items: cities.map((city) {
               IconData icon;
-              //list from the api
-              switch (city) {
+              switch (city.name) {
                 case 'Cairo':
                   icon = Icons.location_city;
                   break;
@@ -57,13 +57,14 @@ class CitySelector extends StatelessWidget {
                 default:
                   icon = Icons.temple_buddhist_outlined;
               }
-              return DropdownMenuItem(
+
+              return DropdownMenuItem<City>(
                 value: city,
                 child: Row(
                   children: [
                     Icon(icon, color: AppColors.chestnutBrown, size: 20),
                     const SizedBox(width: 10),
-                    Text(city, style: const TextStyle(color: AppColors.chestnutBrown)),
+                    Text(city.name, style: const TextStyle(color: AppColors.chestnutBrown)),
                   ],
                 ),
               );

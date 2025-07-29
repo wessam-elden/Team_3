@@ -1,0 +1,15 @@
+flutter_native_splash:
+  color: "#fcf5f0"
+  image: assets/images/maporia.png
+  color_dark: "#fcf5f0"
+  image_dark: assets/images/maporia.png
+
+  android_12:
+    color: "#fcf5f0"
+    image: assets/images/maporia.png
+    color_dark: "#fcf5f0"
+    image_dark: assets/images/maporia.png
+
+  android: true
+  ios: false
+  web: false

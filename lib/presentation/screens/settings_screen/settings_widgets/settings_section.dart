@@ -6,14 +6,12 @@ import 'package:maporia/presentation/screens/password_configuration/reset_passwo
 import 'package:maporia/presentation/screens/settings_screen/settings_widgets/build_card.dart';
 
 class SettingsSection extends StatefulWidget {
-  final String firstName;
-  final String lastName;
+  final String name;
   final VoidCallback onEditName;
 
   const SettingsSection({
     super.key,
-    required this.firstName,
-    required this.lastName,
+    required this.name,
     required this.onEditName,
   });
 
@@ -29,29 +27,31 @@ class _SettingsSectionState extends State<SettingsSection> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        //username card
+        // username card
         BuildCard(
           icon: Icons.face,
           title: AppText.username,
-          subtitle: Text('${widget.firstName} ${widget.lastName}', style: TextStyle(color: AppColors.lightCocoa)),
+          subtitle: Text(widget.name, style: const TextStyle(color: AppColors.lightCocoa)),
           trailingIcon: Icons.edit,
           onTap: widget.onEditName,
         ),
         const SizedBox(height: 5),
-        //email card
+
+        // email card
         const BuildCard(
           icon: Icons.email_outlined,
           title: AppText.email,
           subtitle: Text('ghada.af@yahoo.com', style: TextStyle(color: AppColors.lightCocoa)),
         ),
         const SizedBox(height: 5),
-        // Gender Card
+
+        // gender card
         BuildCard(
           icon: Icons.wc,
           title: AppText.gender,
           subtitle: Text(
             selectedGender ?? AppText.selectGender,
-            style: TextStyle(color: AppColors.lightCocoa),
+            style: const TextStyle(color: AppColors.lightCocoa),
           ),
           trailingIcon: Icons.arrow_drop_down,
           onTap: () {
@@ -74,7 +74,8 @@ class _SettingsSectionState extends State<SettingsSection> {
           ),
 
         const SizedBox(height: 5),
-        //change pass card
+
+        // change password card
         BuildCard(
           icon: Icons.vpn_key,
           title: AppText.changePassword,
@@ -90,7 +91,8 @@ class _SettingsSectionState extends State<SettingsSection> {
           },
         ),
         const SizedBox(height: 5),
-        //logout card
+
+        // logout card
         BuildCard(
           icon: Icons.logout,
           title: AppText.logout,
@@ -109,7 +111,7 @@ class _SettingsSectionState extends State<SettingsSection> {
 
   Widget _buildGenderOption(String gender) {
     return ListTile(
-      title: Text(gender, style: TextStyle(color: AppColors.brown),),
+      title: Text(gender, style: const TextStyle(color: AppColors.brown)),
       leading: Radio<String>(
         value: gender,
         activeColor: AppColors.brown,
