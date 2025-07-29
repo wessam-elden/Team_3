@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { createLandmark, getAllLandmarks, getLandmarksByCity } from "../Repos/LandmarkRepo";
+import xss from "xss";
 
 // Handler to get ALL landmarks
 export async function getAllLandmarksHandler(req: Request, res: Response) {
@@ -42,20 +43,33 @@ export async function getLandmarkesByCityHandler(req: Request, res: Response) {
 
 export async function createLandmarkHandler(req: Request, res: Response) {
   try {
-    const {
+    let {
       name,
       description,
       location,
       image_url,
       opening_hours,
       ticket_price,
-      City_id // ✅ use lowercase
+      City_id,
     } = req.body;
 
     // Basic validation
-    if (!name || !City_id || !location) {
-      return res.status(400).json({ message: "Missing required fields" });
+    if (
+      typeof name !== "string" ||
+      typeof location !== "string" ||
+      !name.trim() ||
+      !location.trim() ||
+      !City_id
+    ) {
+      return res.status(400).json({ message: "Missing or invalid required fields" });
     }
+
+    // 🔐 Sanitize all text inputs
+    name = xss(name.trim());
+    location = xss(location.trim());
+    if (typeof description === "string") description = xss(description.trim());
+    if (typeof image_url === "string") image_url = xss(image_url.trim());
+    if (typeof opening_hours === "string") opening_hours = xss(opening_hours.trim());
 
     const newLandmark = await createLandmark({
       name,
@@ -64,13 +78,17 @@ export async function createLandmarkHandler(req: Request, res: Response) {
       image_url,
       opening_hours,
       ticket_price,
-      City_id // ✅ match
+      City_id,
     });
 
     return res.status(201).json({
       success: true,
       message: "Landmark created successfully",
-      data: newLandmark
+      data: {
+        ...newLandmark,
+        name: xss(newLandmark.name), // double sanitize for safety
+        description: xss(newLandmark.description),
+      },
     });
   } catch (error) {
     console.error("createLandmarkHandler error:", error);
