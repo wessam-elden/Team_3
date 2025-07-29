@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:maporia/models.dart/landmark_model.dart';
 import 'package:maporia/presentation/screens/createcity.dart';
 import 'package:maporia/presentation/screens/place_info.dart';
 
 class AllPlacesPage extends StatelessWidget {
-  final List<Map<String, String>> places;
-  final bool isAdmin; // ✨ أضفنا دي
+  final List<Landmark> places;
+  final bool isAdmin;
 
   const AllPlacesPage({
     super.key,
     required this.places,
-    this.isAdmin = false, // ✨ قيمة افتراضية false
+    this.isAdmin = false,
   });
 
   @override
@@ -29,13 +30,12 @@ class AllPlacesPage extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder:
-                      (_) => PlaceInfo(
-                        title: place['title']!,
-                        description: place['description']!,
-                        image: place['image']!,
-                        place: {},
-                      ),
+                  builder: (_) => PlaceInfo(
+                    title: place.name,
+                    description: place.description ?? 'No description',
+                    image: place.imageUrl ?? '',
+                    place: place,
+                  ),
                 ),
               );
             },
@@ -51,10 +51,11 @@ class AllPlacesPage extends StatelessWidget {
                       top: Radius.circular(16),
                     ),
                     child: Image.network(
-                      place['image']!,
+                      place.imageUrl ?? '',
                       height: 150,
                       width: double.infinity,
                       fit: BoxFit.cover,
+                      errorBuilder: (context, error, stackTrace) => const Icon(Icons.broken_image),
                     ),
                   ),
                   Padding(
@@ -63,7 +64,7 @@ class AllPlacesPage extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          place['title']!,
+                          place.name,
                           style: const TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
@@ -72,7 +73,7 @@ class AllPlacesPage extends StatelessWidget {
                         ),
                         const SizedBox(height: 6),
                         Text(
-                          place['description']!,
+                          place.description ?? 'No description available.',
                           style: const TextStyle(fontSize: 14),
                         ),
                       ],
@@ -84,18 +85,16 @@ class AllPlacesPage extends StatelessWidget {
           );
         },
       ),
-      floatingActionButton:
-          isAdmin
-              ? FloatingActionButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, CreateCity.routeName);
-                },
-                // ignore: sort_child_properties_last
-                child: const Icon(Icons.add),
-                backgroundColor: const Color(0xFF8C5E3C),
-                tooltip: 'Add City',
-              )
-              : null,
+      floatingActionButton: isAdmin
+          ? FloatingActionButton(
+        onPressed: () {
+          Navigator.pushNamed(context, CreateCity.routeName);
+        },
+        child: const Icon(Icons.add),
+        backgroundColor: const Color(0xFF8C5E3C),
+        tooltip: 'Add City',
+      )
+          : null,
     );
   }
 }

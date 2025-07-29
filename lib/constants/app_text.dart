@@ -87,6 +87,9 @@ class AppText {
   static const invalidPhoneNumber ='Invalid phone number format';
   static const invalidName = 'Please enter a valid name';
   static const invalidNameForm = 'Name must contain only letters';
+
+  static const addNumber = 'Add Number';
+  static const selectCountry = 'Select Country';
   //profile
   static const visits = 'Visits';
   static const profileError = 'An error occurred while loading data';

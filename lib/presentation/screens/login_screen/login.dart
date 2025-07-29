@@ -77,7 +77,11 @@ class _LoginState extends State<Login> {
                 fontSize: 18
             ),
             SizedBox(height: height * 0.03,),
-            LoginForm(formKey: cubit.logInFormKey),
+            LoginForm(
+              formKey: cubit.logInFormKey,
+              emailController: cubit.logInEmail,
+              passwordController: cubit.logInPassword,
+            ),
             Container(
               width: double.infinity,
               child: Padding(
