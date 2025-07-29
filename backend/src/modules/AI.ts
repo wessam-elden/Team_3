@@ -2,18 +2,22 @@ import { Request, Response } from 'express';
 import { sendChatMessage,detectLandmark } from '../utilites/AI'; // wherever your function is
 
 import  File from 'multer';
+import xss from 'xss';
 
 
 
 
 export async function handleChat(req: Request, res: Response) {
   try {
-    const { question } = req.body;
+    let { question } = req.body;
 
     // validate input
     if (!question || typeof question !== 'string') {
       return res.status(400).json({ message: 'Invalid question' });
     }
+
+    // ✅ Sanitize question to prevent XSS
+    question = xss(question);
 
     const response = await sendChatMessage({ question });
 
@@ -23,6 +27,7 @@ export async function handleChat(req: Request, res: Response) {
     return res.status(500).json({ message: 'Internal Server Error' });
   }
 }
+
 
 
 interface MulterRequest extends Request {

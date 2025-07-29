@@ -5,11 +5,17 @@ import { comparePassword, hashPassword } from "../utilites/hash";
 import { generateToken } from "../utilites/jwt";
 import { AuthRequest } from "../middlewares/auth";
 
+import xss from 'xss';
+ // adjust path
+
 export async function signup(req: Request, res: Response) {
   try {
-    const { email, password, name } = req.body;
+    // Sanitize user input using xss
+    const email = xss(req.body.email);
+    const password = xss(req.body.password);
+    const name = xss(req.body.name);
 
-    // Basic validation
+    // Basic validation after sanitization
     if (
       typeof email !== "string" ||
       typeof password !== "string" ||
@@ -32,7 +38,7 @@ export async function signup(req: Request, res: Response) {
       email,
       password: hashed,
       name,
-      country: "", // Optional default value
+      country: "",
       isverified: false,
       provider: "GOOGLE",
       provider_id: 0,
@@ -48,20 +54,32 @@ export async function signup(req: Request, res: Response) {
 }
 
 
+
 export async function login(req: Request, res: Response) {
   try {
-    const { email, password } = req.body;
-    if (typeof email != "string" || typeof password != "string" || !email.trim() || !password.trim())
+    // Sanitize input
+    const email = xss(req.body.email);
+    const password = xss(req.body.password);
+
+    // Validate after sanitizing
+    if (
+      typeof email !== "string" ||
+      typeof password !== "string" ||
+      !email.trim() ||
+      !password.trim()
+    ) {
       return res.status(400).json({ message: "Email and password required" });
+    }
 
     const user = await getUserByEmail(email);
-    if (!user)
+    if (!user) {
       return res.status(401).json({ message: "Invalid email or password" });
+    }
 
     const isPasswordValid = await comparePassword(password, user.password);
-
-    if (!isPasswordValid)
+    if (!isPasswordValid) {
       return res.status(401).json({ message: "Invalid password" });
+    }
 
     const payload = {
       id: user.id,
