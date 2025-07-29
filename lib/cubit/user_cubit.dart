@@ -38,7 +38,9 @@ class UserCubit extends Cubit<UserState> {
         data: request.toJson(),
         options: Options(headers: {
           ApiKey.contentType: ApiKey.applicationJson,
-        }),
+        },
+            validateStatus: (_) => true,
+        ),
       );
 
       final token = response.data[ApiKey.token];

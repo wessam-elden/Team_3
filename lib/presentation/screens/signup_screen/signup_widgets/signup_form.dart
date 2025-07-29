@@ -1,44 +1,36 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:maporia/constants/app_text.dart';
 import 'package:maporia/constants/app_colors.dart';
 import 'package:maporia/presentation/widgets/custom_text_field.dart';
 
-class SignUpForm extends StatefulWidget {
-  final GlobalKey<FormState> formKey;
+import '../../../../cubit/user_cubit.dart';
 
-  const SignUpForm({super.key, required this.formKey});
+class SignUpForm extends StatefulWidget {
+//final GlobalKey<FormState> formKey;
+
+  const SignUpForm({super.key,});
 
   @override
   State<SignUpForm> createState() => _SignUpFormState();
 }
 
 class _SignUpFormState extends State<SignUpForm> {
-  final TextEditingController _nameController = TextEditingController();
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _confirmPasswordController = TextEditingController();
-
   bool isPasswordVisible = false;
   bool isConfirmPasswordVisible = false;
 
-  @override
-  void dispose() {
-    _nameController.dispose();
-    _emailController.dispose();
-    _passwordController.dispose();
-    _confirmPasswordController.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
+    final cubit = context.read<UserCubit>();
+
     return Form(
-      key: widget.formKey,
+      key: cubit.signUpFormKey,
       child: Column(
         children: [
           // Full name
           CustomTextField(
-            controller: _nameController,
+            controller: cubit.signUpName,
             validator: (value) {
               if (value == null || value.isEmpty) {
                 return AppText.required;
@@ -59,7 +51,7 @@ class _SignUpFormState extends State<SignUpForm> {
 
           // Email
           CustomTextField(
-            controller: _emailController,
+            controller: cubit.signUpEmail,
             validator: (value) {
               if (value == null || value.isEmpty) {
                 return AppText.emailValidator1;
@@ -70,7 +62,7 @@ class _SignUpFormState extends State<SignUpForm> {
               return null;
             },
             onChanged: (value) {
-              _emailController.value = TextEditingValue(
+              cubit.signUpEmail.value = TextEditingValue(
                 text: value.toLowerCase().trim(),
                 selection: TextSelection.collapsed(offset: value.length),
               );
@@ -85,7 +77,7 @@ class _SignUpFormState extends State<SignUpForm> {
 
           // Password
           CustomTextField(
-            controller: _passwordController,
+            controller: cubit.signUpPassword,
             validator: (value) {
               if (value == null || value.isEmpty) {
                 return AppText.enterPassword;
@@ -127,12 +119,12 @@ class _SignUpFormState extends State<SignUpForm> {
 
           // Confirm Password
           CustomTextField(
-            controller: _confirmPasswordController,
+            controller: cubit.signUpConfirmPassword,
             validator: (value) {
               if (value == null || value.isEmpty) {
                 return AppText.enterPassword;
               }
-              if (value != _passwordController.text) {
+              if (value != cubit.signUpPassword.text) {
                 return AppText.passwordsDoNotMatch;
               }
               return null;

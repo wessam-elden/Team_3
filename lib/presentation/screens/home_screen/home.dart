@@ -14,6 +14,10 @@ import 'package:maporia/presentation/screens/home_screen/home_widgets/home_heade
 import 'package:maporia/presentation/screens/home_screen/home_widgets/search_field.dart';
 import 'package:maporia/presentation/screens/home_screen/home_widgets/top_places_section.dart';
 
+import '../../../cubit/user_cubit.dart';
+import '../../../models.dart/createCity_model.dart';
+import '../../../models.dart/landmark_model.dart';
+
 class Home extends StatefulWidget {
   static const routeName = '/home';
   const Home({super.key});
@@ -37,6 +41,7 @@ class _HomeState extends State<Home> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       context.read<UserCubit>().getAllCities();
     });
+    context.read<UserCubit>().getAllCities();
 
     _scrollController.addListener(() {
       setState(() {
@@ -72,6 +77,7 @@ class _HomeState extends State<Home> {
   Future<void> _openCamera() async {
     final XFile? photo = await _picker.pickImage(source: ImageSource.camera);
     if (photo != null) {
+      // ignore: avoid_print
       print("Camera opened and image captured: ${photo.path}");
     }
   }
@@ -108,25 +114,20 @@ class _HomeState extends State<Home> {
                               selectedCity ??= cities.first;
                               context.read<UserCubit>().getLandmarksByCityId(selectedCity!.id);
 
-                              return CitySelector(
-                                cities: cities,
-                                selectedCity: selectedCity!,
-                                onChanged: (value) {
-                                  setState(() {
-                                    selectedCity = value;
-                                  });
-                                  context.read<UserCubit>().getLandmarksByCityId(value.id);
-                                },
-                              );
-                            } else {
-                              return const Text("NO CITIES");
-                            }
-                          } else if (state is GetAllCitiesFailure) {
-                            return Text(state.errMessage, style: const TextStyle(color: Colors.red));
-                          }
-                          return const SizedBox();
-                        },
-                      ),
+                          return CitySelector(
+                            cities: cities,
+                            selectedCity: selectedCity!,
+                            onChanged: (value) {
+                              setState(() {
+                                selectedCity = value;
+                              });
+                              context.read<UserCubit>().getLandmarksByCityId(value.id);
+                            },
+
+                          );
+
+                        }
+                            );
                       const SizedBox(height: 16),
                       SearchField(
                         onChanged: (value) {
@@ -138,6 +139,8 @@ class _HomeState extends State<Home> {
                       const SizedBox(height: 16),
                       BlocBuilder<UserCubit, UserState>(
                         builder: (BuildContext context, UserState state) {
+                          List<Landmark> filteredPlaces = [];
+
                           if (state is GetLandmarksByCityLoading) {
                             return const Center(child: CircularProgressIndicator());
                           } else if (state is GetLandmarksByCitySuccess) {
@@ -145,18 +148,18 @@ class _HomeState extends State<Home> {
                                 .where((place) =>
                                 place.name.toLowerCase().contains(searchQuery.toLowerCase()))
                                 .toList();
-
-                            return TopPlacesSection(
-                              places: filteredPlaces,
-                              scrollController: _scrollController,
-                              onScrollLeft: _scrollLeft,
-                              onScrollRight: _scrollRight,
-                              canScrollLeft: _canScrollLeft,
-                            );
                           } else if (state is GetLandmarksByCityFailure) {
                             return Text(state.errMessage, style: const TextStyle(color: Colors.red));
                           }
-                          return const SizedBox();
+
+                          return TopPlacesSection(
+                            places: filteredPlaces,
+                            scrollController: _scrollController,
+                            onScrollLeft: _scrollLeft,
+                            onScrollRight: _scrollRight,
+                            canScrollLeft: _canScrollLeft,
+                          );
+
                         },
                       ),
                       const SizedBox(height: 24),
@@ -184,7 +187,7 @@ class _HomeState extends State<Home> {
                             ),
                           );
                         },
-                      ),
+                      )
                     ],
                   ),
                 ),

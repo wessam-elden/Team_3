@@ -5,7 +5,7 @@ import { requireAdmin } from "../middlewares/adminauth";
 
 const router = express.Router();
 
-router.get('/all', getCitiesHandler);
+router.get('/all',verifyTokenMiddleware, getCitiesHandler);
 
 
 router.post('/create', verifyTokenMiddleware, requireAdmin, createCityHandler);

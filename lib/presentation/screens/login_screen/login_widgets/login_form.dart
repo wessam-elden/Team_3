@@ -5,16 +5,8 @@ import 'package:maporia/constants/app_colors.dart';
 import '../../../../cubit/user_cubit.dart';
 
 class LoginForm extends StatefulWidget {
-  final GlobalKey<FormState> formKey;
-  final TextEditingController emailController;
-  final TextEditingController passwordController;
 
-  const LoginForm({
-    super.key,
-    required this.formKey,
-    required this.emailController,
-    required this.passwordController,
-  });
+  const LoginForm({super.key,});
 
   @override
   State<LoginForm> createState() => _LoginFormState();
@@ -45,10 +37,11 @@ class _LoginFormState extends State<LoginForm> {
   Widget build(BuildContext context) {
     final cubit = context.read<UserCubit>();
     return Form(
-      key: widget.formKey,
+      key: cubit.logInFormKey,
       child: Column(
         children: [
           TextFormField(
+            controller: cubit.logInEmail,
             validator: _validateEmail,
             keyboardType: TextInputType.emailAddress,
             decoration: InputDecoration(

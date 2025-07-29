@@ -1,8 +1,8 @@
-import 'package:dio/dio.dart';
+
 import 'package:flutter/material.dart';
 import 'package:maporia/constants/app_colors.dart';
 import 'package:maporia/constants/app_text.dart';
-import 'package:maporia/core/api/api_dio/api_keys.dart';
+
 import 'package:maporia/cubit/user_cubit.dart';
 import 'package:maporia/cubit/user_state.dart';
 import 'package:maporia/presentation/screens/home_screen/home.dart';
@@ -56,7 +56,6 @@ class _LoginState extends State<Login> {
                 ),
               ),
             );
-
           } else if (state is LoginInFailure) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
@@ -77,11 +76,7 @@ class _LoginState extends State<Login> {
                 fontSize: 18
             ),
             SizedBox(height: height * 0.03,),
-            LoginForm(
-              formKey: cubit.logInFormKey,
-              emailController: cubit.logInEmail,
-              passwordController: cubit.logInPassword,
-            ),
+            LoginForm(),
             Container(
               width: double.infinity,
               child: Padding(
@@ -154,3 +149,56 @@ class _LoginState extends State<Login> {
     );
   }
 }
+// Card(
+//   color: Colors.white,
+//   margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+//   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+//   elevation: 2,
+//   child: Column(
+//     children: [
+//       ListTile(
+//         leading: const Icon(Icons.flag, color: AppColors.brown),
+//         title: const Text("Country"),
+//         subtitle: Text(country),
+//         trailing: Icon(
+//           showCountryOptions ? Icons.arrow_drop_up : Icons.arrow_drop_down,
+//           color: AppColors.brown,
+//         ),
+//         onTap: () {
+//           setState(() {
+//             showCountryOptions = !showCountryOptions;
+//           });
+//         },
+//       ),
+//       if (showCountryOptions)
+//         Column(
+//           children: [
+//             RadioListTile(
+//               title: const Text("Egypt"),
+//               value: "Egypt",
+//               groupValue: country,
+//               activeColor: AppColors.brown,
+//               onChanged: (value) {
+//                 setState(() {
+//                   country = value.toString();
+//                   showCountryOptions = false;
+//                 });
+//               },
+//             ),
+//             RadioListTile(
+//               title: const Text("France"),
+//               value: "France",
+//               groupValue: country,
+//               activeColor: AppColors.brown,
+//               onChanged: (value) {
+//                 setState(() {
+//                   country = value.toString();
+//                   showCountryOptions = false;
+//                 });
+//               },
+//             ),
+//           ],
+//         ),
+//     ],
+//   ),
+//)

@@ -38,7 +38,6 @@ export async function signup(req: Request, res: Response) {
       provider_id: 0,
       phone_number: "",
       role: "TOURIST",
-      verification_code: Math.floor(1000 + Math.random() * 9000).toString(),
     });
 
     res.status(201).json({ message: "User created successfully" });
@@ -59,7 +58,7 @@ export async function login(req: Request, res: Response) {
     if (!user)
       return res.status(401).json({ message: "Invalid email or password" });
 
-    const isPasswordValid =  comparePassword(password, user.password);
+    const isPasswordValid = await comparePassword(password, user.password);
 
     if (!isPasswordValid)
       return res.status(401).json({ message: "Invalid password" });
