@@ -66,7 +66,7 @@ async function seed() {
     });
 
     // 2. Create cities
-    const cairo = await createCity("Cairo");
+    const Giza = await createCity("Giza");
     const luxor = await createCity("Luxor");
     const fayoum = await createCity("Fayoum");
 
@@ -76,17 +76,17 @@ async function seed() {
       name: "Pyramids of Giza",
       description: "Ancient pyramids",
       location: "Giza Plateau",
-      image_url: "https://example.com/pyramids.jpg",
+      image_url: "./landmark_photo/pyramid.jpg",
       opening_hours: "8 AM - 5 PM",
       ticket_price: 200,
-      City_id: cairo.id,
+      City_id: Giza.id,
     });
 
     const karnak = await createLandmark({
       name: "Karnak Temple",
       description: "Famous temple complex",
       location: "Luxor",
-      image_url: "https://example.com/karnak.jpg",
+      image_url: "./landmark_photokarnak.jpg",
       opening_hours: "9 AM - 4 PM",
       ticket_price: 150,
       City_id: luxor.id,
@@ -96,7 +96,7 @@ async function seed() {
     // Example only if you already know user IDs:
     await createVisit({
       User_id: 1, // Replace with actual user id
-      City_id: cairo.id,
+      City_id: Giza.id,
       Landmark_id: pyramids.id,
       rating: 5,
       opinion: "Amazing experience!",
