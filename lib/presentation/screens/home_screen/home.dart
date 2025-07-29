@@ -83,17 +83,17 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
 
-    final filteredPlaces =
-        cityPlaces[selectedCity]!
-            .where(
-              (place) => place['title']!.toLowerCase().contains(
-                searchQuery.toLowerCase(),
-              ),
-            )
-            .toList();
+    // final filteredPlaces =
+    //     cityPlaces[selectedCity]!
+    //         .where(
+    //           (place) => place['title']!.toLowerCase().contains(
+    //             searchQuery.toLowerCase(),
+    //           ),
+    //         )
+    //         .toList();
     // final filteredPlaces = cityPlaces[selectedCity]!
-    //     .where((place) => place['title']!.toLowerCase().contains(searchQuery.toLowerCase()))
-    //     .toList();
+    //      .where((place) => place['title']!.toLowerCase().contains(searchQuery.toLowerCase()))
+    //      .toList();
 
     return Scaffold(
       backgroundColor: AppColors.ivoryWhite,
@@ -191,16 +191,16 @@ class _HomeState extends State<Home> {
                           style: TextStyle(color: Colors.white),
                         ),
                         onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder:
-                                  (_) => AllPlacesPage(
-                                    places: cityPlaces[selectedCity]!,
-                                    isAdmin: true, // ← اعتبره Admin هنا
-                                  ),
-                            ),
-                          );
+                          // Navigator.push(
+                          //   context,
+                          //   MaterialPageRoute(
+                          //     builder:
+                          //         (_) => AllPlacesPage(
+                          //           places: cityPlaces[selectedCity]!,
+                          //           isAdmin: true, // ← اعتبره Admin هنا
+                          //         ),
+                          //   ),
+                          //);
                         },
                       )
                     ],

@@ -19,6 +19,6 @@ app.use("/landmark", landmarkRoutes); // ✅ add landmark route)
 app.use("/visit", visitRoutes);
 
 const PORT = 4040;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+app.listen(PORT,'0.0.0.0', () => console.log(`Server running on port ${PORT}`));
 
 

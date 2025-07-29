@@ -19,12 +19,12 @@ import '../../../models.dart/sign_up_model.dart';
 class Signup extends StatelessWidget {
   static String routeName = '/signup';
 
-  final GlobalKey<FormState> signupFormKey = GlobalKey<FormState>();
+  //final GlobalKey<FormState> signupFormKey = GlobalKey<FormState>();
   Signup({super.key});
 
   @override
   Widget build(BuildContext context) {
-
+    final cubit = context.read<UserCubit>();
     final size = MediaQuery.of(context).size;
     final height = size.height;
 
@@ -53,15 +53,15 @@ class Signup extends StatelessWidget {
                   fontSize: 28,
               ),
             ),
-            SignUpForm(formKey: signupFormKey),
+            SignUpForm(key: cubit.signUpFormKey),
             SizedBox(height: height*0.03,),
             state is SignUpLoading? CircularProgressIndicator(): CustomButton(
               title: AppText.signup,
-              formKey: signupFormKey,
+              formKey: cubit.signUpFormKey,
               function: () {
           final cubit = context.read<UserCubit>();
 
-          if (signupFormKey.currentState!.validate()) {
+          if (cubit.signUpFormKey.currentState!.validate()) {
           final request = SignUpRequest(
           name: cubit.signUpName.text.trim(),
           email: cubit.signUpEmail.text.trim(),

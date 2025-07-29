@@ -10,6 +10,7 @@ class LoginRequest {
     'password': password,
   };
 }
+
 class LoginResponse {
   final String token;
   final String message;
