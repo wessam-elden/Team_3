@@ -14,7 +14,6 @@ class SuccessfulMission extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     final size = MediaQuery.of(context).size;
     final height = size.height;
     final width = size.width;
@@ -22,22 +21,23 @@ class SuccessfulMission extends StatelessWidget {
     return CustomScaffold(
       children: [
         TextContainer(
-            text: textType == '/login' ? AppText.accountCreated : AppText.passwordChanged,
-            textAlign: TextAlign.center,
-            fontSize: 16
+          text:
+              textType == '/login'
+                  ? AppText.accountCreated
+                  : AppText.passwordChanged,
+          textAlign: TextAlign.center,
+          fontSize: 16,
         ),
-        SizedBox(height: height*0.01,),
+        SizedBox(height: height * 0.01),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            // ignore: sized_box_for_whitespace
             Container(
               width: width * 0.5,
               height: width * 0.5,
-              child: Image.asset(
-                AppAssets.right,
-                fit: BoxFit.cover,
-              ),
+              child: Image.asset(AppAssets.right, fit: BoxFit.cover),
             ),
           ],
         ),
@@ -45,9 +45,13 @@ class SuccessfulMission extends StatelessWidget {
           title: AppText.signIn,
           size: 16,
           color: AppColors.brown,
-          function: (){
-            Navigator.pushNamedAndRemoveUntil(context, Login.routeName, (route) => false,);
-            },
+          function: () {
+            Navigator.pushNamedAndRemoveUntil(
+              context,
+              Login.routeName,
+              (route) => false,
+            );
+          },
           fontWeight: FontWeight.bold,
           textAlign: TextAlign.center,
         ),

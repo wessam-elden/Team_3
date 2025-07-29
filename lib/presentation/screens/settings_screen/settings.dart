@@ -19,10 +19,7 @@ class Settings extends StatelessWidget {
       children: [
         const Padding(
           padding: EdgeInsets.only(bottom: 20, left: 10),
-          child: TextContainer(
-            text: AppText.settings,
-            fontSize: 28,
-          ),
+          child: TextContainer(text: AppText.settings, fontSize: 28),
         ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),

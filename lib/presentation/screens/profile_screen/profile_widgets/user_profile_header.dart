@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:maporia/constants/app_assets.dart';
 import 'package:maporia/constants/app_colors.dart';
+import 'package:maporia/constants/app_text.dart';
 import 'package:maporia/models.dart/user_model.dart';
 
 class UserProfileHeader extends StatefulWidget {
