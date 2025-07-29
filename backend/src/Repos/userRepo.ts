@@ -1,7 +1,8 @@
 import { User } from "../models/User";
 import { pool } from "../utilites/db";
 import { v4 as uuidv4 } from 'uuid';
-
+import {pool as db} from '../utilites/db';
+import { ResultSetHeader } from 'mysql2';
 export async function createUser(user: Omit<User, "id" | "created_at">): Promise<void> {
   const {
     email, password, name, country, isverified, provider,
@@ -19,6 +20,16 @@ export async function createUser(user: Omit<User, "id" | "created_at">): Promise
     provider_id, phone_number, role
   ]);
 }
+
+
+export async function updateUserPassword(email: string, hashedPassword: string) {
+  const [result] = await db.execute<ResultSetHeader>(
+    'UPDATE user SET password = ? WHERE email = ?',
+    [hashedPassword, email]
+  );
+  return result.affectedRows > 0;
+}
+
 
 
 
