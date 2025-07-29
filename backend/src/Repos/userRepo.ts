@@ -3,7 +3,6 @@ import { pool } from "../utilites/db";
 import { v4 as uuidv4 } from 'uuid';
 
 export async function createUser(user: Omit<User, "id" | "created_at">): Promise<void> {
-  const id = uuidv4(); // Generate a unique ID for the user
   const {
     email, password, name, country, isverified, provider,
     provider_id, phone_number, role, verification_code
@@ -11,15 +10,17 @@ export async function createUser(user: Omit<User, "id" | "created_at">): Promise
 
   const query = `
     INSERT INTO user 
-    (id, email, password, name, country, isverified, provider, provider_id, phone_number, role, verification_code)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    (email, password, name, country, isverified, provider, provider_id, phone_number, role, verification_code)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
   `;
 
   await pool.execute(query, [
-    id, email, password, name, country, isverified, provider,
+    email, password, name, country, isverified, provider,
     provider_id, phone_number, role, verification_code || null
   ]);
 }
+
+
 
 export async function getUserByEmail(email: string): Promise<User | null> {
   const [rows]: any = await pool.execute(
