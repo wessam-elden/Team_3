@@ -296,6 +296,25 @@ class UserCubit extends Cubit<UserState> {
   }
 
 
+  String userName = "ghada";
+  String userPhone = "0123456789";
+  String userCountry = "Egypt";
+  String userRole = "Tourist";
+  String userEmail = "ghada@example.com";
+
+  String get name => userName;
+  String get phone => userPhone;
+  String get country => userCountry;
+  String get role => userRole;
+  String get email => userEmail;
+
+  void updateUserInfo({String? name, String? phone, String? country}) {
+    if (name != null) userName = name;
+    if (phone != null) userPhone = phone;
+    if (country != null) userCountry = country;
+
+    emit(UserInfoUpdated());
+  }
 
 
 }
