@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:maporia/constants/app_colors.dart';
+import 'package:maporia/cubit/user_cubit.dart';
 import 'package:maporia/cubit/user_state.dart';
+import 'package:maporia/models.dart/createCity_model.dart';
+import 'package:maporia/models.dart/landmark_model.dart';
 import 'package:maporia/presentation/screens/home_screen/home_widgets/custom_bottom_nav_bar.dart';
 import 'package:maporia/presentation/screens/home_screen/home_widgets/bot_button.dart';
 import 'package:maporia/presentation/screens/home_screen/home_widgets/city_selector.dart';
@@ -10,9 +13,7 @@ import 'package:maporia/presentation/screens/home_screen/home_widgets/home_heade
 import 'package:maporia/presentation/screens/home_screen/home_widgets/search_field.dart';
 import 'package:maporia/presentation/screens/home_screen/home_widgets/top_places_section.dart';
 
-import '../../../cubit/user_cubit.dart';
-import '../../../models.dart/createCity_model.dart';
-import '../../../models.dart/landmark_model.dart';
+
 
 class Home extends StatefulWidget {
   static const routeName = '/home';
@@ -34,12 +35,13 @@ class _HomeState extends State<Home> {
   bool _canScrollLeft = false;
   final ImagePicker _picker = ImagePicker();
 
-
-
   @override
   void initState() {
     super.initState();
-    context.read<UserCubit>().getAllCities();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      context.read<UserCubit>().getAllCities();
+    });
+
     _scrollController.addListener(() {
       setState(() {
         _canScrollLeft = _scrollController.offset > 0;
@@ -111,27 +113,30 @@ class _HomeState extends State<Home> {
                             return const Center(child: CircularProgressIndicator());
                           } else if (state is GetAllCitiesSuccess) {
                             cities = state.cities;
-                            selectedCity ??= cities.first;
-                            if (landmarks.isEmpty && selectedCity != null) {
-                              context.read<UserCubit>().getLandmarksByCityId(selectedCity!.id);
+                            if (cities.isNotEmpty) {
+                              selectedCity ??= cities.first;
+                              if (landmarks.isEmpty && selectedCity != null) {
+                                context.read<UserCubit>().getLandmarksByCityId(selectedCity!.id);
+                              }
+
+                              return CitySelector(
+                                cities: cities,
+                                selectedCity: selectedCity!,
+                                onChanged: (value) {
+                                  setState(() {
+                                    selectedCity = value;
+                                  });
+                                  context.read<UserCubit>().getLandmarksByCityId(value.id);
+                                },
+                              );
+                            } else {
+                              return const Text("NO CITIES");
                             }
+                          } else if (state is GetAllCitiesFailure) {
+                            return Text(state.errMessage, style: const TextStyle(color: Colors.red));
                           }
-                          else if (state is GetAllCitiesFailure) {
-                            return Text(state.errMessage, style: TextStyle(color: Colors.red));
-                          }
 
-
-                          return CitySelector(
-                            cities: cities,
-                            selectedCity: selectedCity!,
-                            onChanged: (value) {
-                              setState(() {
-                                selectedCity = value;
-                              });
-                              context.read<UserCubit>().getLandmarksByCityId(value.id);
-                            },
-                          );
-
+                          return const SizedBox();
                         },
                       ),
                       const SizedBox(height: 16),

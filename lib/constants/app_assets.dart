@@ -5,7 +5,6 @@ class AppAssets {
   static const String shadow = '${_imagesPath}shadow.png';
 
   static const String google = '${_imagesPath}google.png';
-  static const String apple = '${_imagesPath}apple.png';
 
   static const String right = '${_imagesPath}right.png';
 
@@ -14,7 +13,7 @@ class AppAssets {
   static const String welcome = '${_imagesPath}welcome.jpg';
 
   //profile
-  static const String male = '${_imagesPath}profile_boy.jpg';
-  static const String female = '${_imagesPath}profile_girl.png';
+  static const String unknown = '${_imagesPath}unknown.jpg';
+
 
 }

@@ -1,38 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:maporia/constants/app_text.dart';
-import 'package:maporia/presentation/screens/settings_screen/settings_widgets/edit_name_dialog.dart';
+import 'package:maporia/cubit/user_cubit.dart';
 import 'package:maporia/presentation/screens/settings_screen/settings_widgets/settings_section.dart';
+import 'package:maporia/presentation/screens/settings_screen/settings_widgets/edit_name_dialog.dart';
 import 'package:maporia/presentation/widgets/custom_scaffold.dart';
 import 'package:maporia/presentation/widgets/text_container.dart';
 
-class Settings extends StatefulWidget {
+class Settings extends StatelessWidget {
   static String routeName = '/settings';
   const Settings({super.key});
 
   @override
-  State<Settings> createState() => _SettingsState();
-}
-
-class _SettingsState extends State<Settings> {
-
-  // will be changed according to the user's name
-  String name = "Ghada Abou-El-Fadl";
-
-  void _editName() async {
-    final result = await showDialog<String>(
-      context: context,
-      builder: (context) => EditNameDialog(name: name),
-    );
-
-    if (result != null) {
-      setState(() {
-        name = result;
-      });
-    }
-  }
-
-  @override
   Widget build(BuildContext context) {
+    final cubit = context.watch<UserCubit>();
+
     return CustomScaffold(
       children: [
         const Padding(
@@ -42,11 +24,26 @@ class _SettingsState extends State<Settings> {
             fontSize: 28,
           ),
         ),
-        SettingsSection(
-          name: name,
-          onEditName: _editName,
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: SettingsSection(
+            name: cubit.userName,
+            onEditName: () => _editName(context, cubit.userName),
+          ),
         ),
       ],
+    );
+  }
+
+  void _editName(BuildContext context, String currentName) {
+    showDialog(
+      context: context,
+      builder: (_) => EditNameDialog(
+        currentName: currentName,
+        onNameChanged: (newName) {
+          context.read<UserCubit>().updateUserInfo(name: newName);
+        },
+      ),
     );
   }
 }

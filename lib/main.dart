@@ -19,10 +19,7 @@ void main() {
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
   runApp(
-    BlocProvider(
-      create: (context) => UserCubit(),
-      child: const MaporiaApp(),
-    ),
+    const MaporiaApp(),
   );
 }
 
@@ -42,19 +39,23 @@ class _MaporiaAppState extends State<MaporiaApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      initialRoute: Home.routeName,
-      routes: {
-        Onboarding.routeName: (context) => const Onboarding(),
-        Login.routeName: (context) => Login(),
-        Home.routeName: (context) => Home(),
-        Signup.routeName: (context) => Signup(),
-        ForgotPassword.routeName: (context) => ForgotPassword(),
-        ResetPassword.routeName: (context) => ResetPassword(),
-        Profile.routeName: (context) => Profile(),
-        Settings.routeName: (context) => Settings(),
-      },
+    return BlocProvider(
+      create: (_) => UserCubit()..getAllCities(),
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        initialRoute: Home.routeName,
+        routes: {
+          Onboarding.routeName: (context) => const Onboarding(),
+          Login.routeName: (context) => const Login(),
+          Home.routeName: (context) => const Home(),
+          Signup.routeName: (context) => Signup(),
+          ForgotPassword.routeName: (context) => ForgotPassword(),
+          ResetPassword.routeName: (context) => const ResetPassword(),
+          Profile.routeName: (context) => const Profile(),
+          Settings.routeName: (context) => const Settings(),
+        },
+      ),
     );
   }
 }
+

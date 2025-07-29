@@ -47,11 +47,16 @@ class _LoginState extends State<Login> {
                 content: Text(state.message),
               ),
             );
-            Navigator.pushNamedAndRemoveUntil(
+            Navigator.push(
               context,
-              Home.routeName,
-              (Route<dynamic> route) => false,
+              MaterialPageRoute(
+                builder: (context) => BlocProvider.value(
+                  value: BlocProvider.of<UserCubit>(context),
+                  child: const Home(),
+                ),
+              ),
             );
+
           } else if (state is LoginInFailure) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(

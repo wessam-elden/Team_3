@@ -27,10 +27,6 @@ class _UserProfileHeaderState extends State<UserProfileHeader> {
     }
   }
 
-  String getAvatar(String gender) {
-    return gender == 'male' ? AppAssets.male : AppAssets.female;
-  }
-
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -42,7 +38,7 @@ class _UserProfileHeaderState extends State<UserProfileHeader> {
               backgroundColor: AppColors.ivoryWhite,
               backgroundImage: _imageFile != null
                   ? FileImage(_imageFile!)
-                  : AssetImage(getAvatar(widget.user.gender)) as ImageProvider,
+                  : AssetImage(AppAssets.unknown) as ImageProvider,
             ),
             Positioned(
               bottom: 0,
