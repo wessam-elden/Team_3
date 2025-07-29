@@ -13,7 +13,7 @@ import 'package:maporia/presentation/screens/password_configuration/successful_m
 import 'package:maporia/presentation/screens/profile_screen/profile.dart';
 import 'package:maporia/presentation/screens/settings_screen/settings.dart';
 import 'package:maporia/presentation/screens/signup_screen/signup.dart';
-
+void main(){
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
@@ -42,22 +42,20 @@ class _MaporiaAppState extends State<MaporiaApp> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => UserCubit()..getAllCities(),
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        initialRoute: Home.routeName,
-        routes: {
-          Onboarding.routeName: (context) => const Onboarding(),
-          Login.routeName: (context) => const Login(),
-          Home.routeName: (context) => const Home(),
-          Signup.routeName: (context) => Signup(),
-          ForgotPassword.routeName: (context) => ForgotPassword(),
-          ResetPassword.routeName: (context) => const ResetPassword(),
-          Profile.routeName: (context) => const Profile(),
-          Settings.routeName: (context) => const Settings(),
-        },
-      ),
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      initialRoute: Home.routeName,
+      routes: {
+        Onboarding.routeName: (context) => const Onboarding(),
+        Login.routeName: (context) => Login(),
+        Home.routeName: (context) => Home(),
+        Signup.routeName: (context) => Signup(),
+        ForgotPassword.routeName: (context) => ForgotPassword(),
+        ResetPassword.routeName: (context) => ResetPassword(),
+        Profile.routeName: (context) => Profile(),
+        Settings.routeName: (context) => Settings(),
+        CreateCity.routeName: (context) => const CreateCity(),
+      },
     );
   }
 }

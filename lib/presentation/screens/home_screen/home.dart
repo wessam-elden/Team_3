@@ -2,54 +2,62 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:maporia/constants/app_colors.dart';
-import 'package:maporia/cubit/user_cubit.dart';
-import 'package:maporia/presentation/screens/all_places.dart';
 import 'package:maporia/cubit/user_state.dart';
-import 'package:maporia/models.dart/createCity_model.dart';
-import 'package:maporia/models.dart/landmark_model.dart';
 import 'package:maporia/presentation/screens/home_screen/home_widgets/custom_bottom_nav_bar.dart';
 import 'package:maporia/presentation/screens/home_screen/home_widgets/bot_button.dart';
 import 'package:maporia/presentation/screens/home_screen/home_widgets/city_selector.dart';
 import 'package:maporia/presentation/screens/home_screen/home_widgets/home_header_image.dart';
 import 'package:maporia/presentation/screens/home_screen/home_widgets/search_field.dart';
 import 'package:maporia/presentation/screens/home_screen/home_widgets/top_places_section.dart';
-
 import '../../../cubit/user_cubit.dart';
 import '../../../models.dart/createCity_model.dart';
 import '../../../models.dart/landmark_model.dart';
-
 class Home extends StatefulWidget {
   static const routeName = '/home';
   const Home({super.key});
-
   @override
   State<Home> createState() => _HomeState();
 }
-
 class _HomeState extends State<Home> {
+  //static until the api integration
   List<City> cities = [];
   City? selectedCity;
+  List<Landmark> landmarks = [];
   String searchQuery = '';
   Offset _botOffset = const Offset(20, 100);
   final ScrollController _scrollController = ScrollController();
   bool _canScrollLeft = false;
   final ImagePicker _picker = ImagePicker();
+  //static until the api integration
+  final Map<String, List<Map<String, String>>> cityPlaces = {
+    'Cairo': [
+      {'title': 'Pyramids', 'description': 'One of the ancient wonders of the world.', 'image': 'assets/images/pyramids.jpg'},
+      {'title': 'Citadel', 'description': 'Historic Islamic-era fortress in Cairo.', 'image': 'assets/images/qaitbay.jpg'},
+    ],
+    'Giza': [
+      {'title': 'Pyramids', 'description': 'One of the ancient wonders of the world.', 'image': 'assets/images/pyramids.jpg'},
+    ],
+    'Luxor': [
+      {'title': 'Karnak Temple', 'description': 'One of the largest ancient temples.', 'image': 'assets/images/karnak.jpg'},
+    ],
+    'Alexandria': [
+      {'title': 'Qaitbay Citadel', 'description': 'Historic fortress on the Mediterranean coast.', 'image': 'assets/images/qaitbay.jpg'},
+    ],
+    'Aswan': [
+      {'title': 'Philae Temple', 'description': 'Ancient temple complex in Aswan.', 'image': 'assets/images/philae.jpg'},
+    ],
+  };
 
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      context.read<UserCubit>().getAllCities();
-    });
     context.read<UserCubit>().getAllCities();
-
     _scrollController.addListener(() {
       setState(() {
         _canScrollLeft = _scrollController.offset > 0;
       });
     });
   }
-
   void _scrollRight() {
     final nextScroll = (_scrollController.offset + 200).clamp(
       0.0,
@@ -61,7 +69,6 @@ class _HomeState extends State<Home> {
       curve: Curves.easeOut,
     );
   }
-
   void _scrollLeft() {
     final prevScroll = (_scrollController.offset - 200).clamp(
       0.0,
@@ -73,21 +80,20 @@ class _HomeState extends State<Home> {
       curve: Curves.easeOut,
     );
   }
-
   Future<void> _openCamera() async {
     final XFile? photo = await _picker.pickImage(source: ImageSource.camera);
     if (photo != null) {
-      // ignore: avoid_print
+      //will be deleted after the api integration
       print("Camera opened and image captured: ${photo.path}");
     }
   }
-
   @override
   Widget build(BuildContext context) {
-    List<Landmark> filteredPlaces = [];
-
+    // final filteredPlaces = cityPlaces[selectedCity]!
+    //     .where((place) => place['title']!.toLowerCase().contains(searchQuery.toLowerCase()))
+    //     .toList();
     return Scaffold(
-      backgroundColor: AppColors.ivoryWhite,
+      backgroundColor: AppColors.ivoryWhite ,
       body: Stack(
         children: [
           CustomScrollView(
@@ -96,7 +102,9 @@ class _HomeState extends State<Home> {
                 pinned: false,
                 expandedHeight: 250,
                 backgroundColor: Colors.transparent,
-                flexibleSpace: FlexibleSpaceBar(background: HomeHeaderImage()),
+                flexibleSpace: FlexibleSpaceBar(
+                  background: HomeHeaderImage(),
+                ),
               ),
               SliverToBoxAdapter(
                 child: Padding(
@@ -112,22 +120,32 @@ class _HomeState extends State<Home> {
                             cities = state.cities;
                             if (cities.isNotEmpty) {
                               selectedCity ??= cities.first;
-                              context.read<UserCubit>().getLandmarksByCityId(selectedCity!.id);
-
-                          return CitySelector(
-                            cities: cities,
-                            selectedCity: selectedCity!,
-                            onChanged: (value) {
-                              setState(() {
-                                selectedCity = value;
-                              });
-                              context.read<UserCubit>().getLandmarksByCityId(value.id);
-                            },
-
-                          );
-
-                        }
-                            );
+                              // لو selectedCity اتغيرت (مثلاً لما البلد تتغير من settings)، نتأكد إنها لسه موجودة
+                              if (!cities.contains(selectedCity)) {
+                                selectedCity = cities.first;
+                              }
+                              if (landmarks.isEmpty && selectedCity != null) {
+                                context.read<UserCubit>().getLandmarksByCityId(selectedCity!.id);
+                              }
+                              return CitySelector(
+                                cities: cities,
+                                selectedCity: selectedCity!,
+                                onChanged: (value) {
+                                  setState(() {
+                                    selectedCity = value;
+                                  });
+                                  context.read<UserCubit>().getLandmarksByCityId(value.id);
+                                },
+                              );
+                            } else {
+                              return const Text("لا توجد مدن متاحة حاليًا");
+                            }
+                          } else if (state is GetAllCitiesFailure) {
+                            return Text(state.errMessage, style: const TextStyle(color: Colors.red));
+                          }
+                          return const SizedBox(); // fallback
+                        },
+                      ),
                       const SizedBox(height: 16),
                       SearchField(
                         onChanged: (value) {
@@ -140,7 +158,6 @@ class _HomeState extends State<Home> {
                       BlocBuilder<UserCubit, UserState>(
                         builder: (BuildContext context, UserState state) {
                           List<Landmark> filteredPlaces = [];
-
                           if (state is GetLandmarksByCityLoading) {
                             return const Center(child: CircularProgressIndicator());
                           } else if (state is GetLandmarksByCitySuccess) {
@@ -151,7 +168,6 @@ class _HomeState extends State<Home> {
                           } else if (state is GetLandmarksByCityFailure) {
                             return Text(state.errMessage, style: const TextStyle(color: Colors.red));
                           }
-
                           return TopPlacesSection(
                             places: filteredPlaces,
                             scrollController: _scrollController,
@@ -159,35 +175,8 @@ class _HomeState extends State<Home> {
                             onScrollRight: _scrollRight,
                             canScrollLeft: _canScrollLeft,
                           );
-
                         },
                       ),
-                      const SizedBox(height: 24),
-                      ElevatedButton.icon(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: AppColors.brown,
-                          padding: const EdgeInsets.symmetric(vertical: 12),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                        ),
-                        icon: const Icon(Icons.place, color: Colors.white),
-                        label: const Text(
-                          'View All Places',
-                          style: TextStyle(color: Colors.white),
-                        ),
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (_) => AllPlacesPage(
-                                places: filteredPlaces,
-                                isAdmin: true,
-                              ),
-                            ),
-                          );
-                        },
-                      )
                     ],
                   ),
                 ),
@@ -196,21 +185,12 @@ class _HomeState extends State<Home> {
           ),
           Positioned(
             left: _botOffset.dx,
-            top: _botOffset.dy.clamp(
-              0.0,
-              MediaQuery.of(context).size.height - 130,
-            ),
+            top: _botOffset.dy.clamp(0.0, MediaQuery.of(context).size.height - 130),
             child: BotButton(
               initialOffset: _botOffset,
               onDragEnd: (offset) {
                 setState(() {
-                  _botOffset = Offset(
-                    offset.dx,
-                    offset.dy.clamp(
-                      0.0,
-                      MediaQuery.of(context).size.height - 130,
-                    ),
-                  );
+                  _botOffset = Offset(offset.dx, offset.dy.clamp(0.0, MediaQuery.of(context).size.height - 130));
                 });
               },
             ),
@@ -221,9 +201,7 @@ class _HomeState extends State<Home> {
       floatingActionButton: FloatingActionButton(
         onPressed: _openCamera,
         backgroundColor: AppColors.chestnutBrown,
-        shape: const CircleBorder(
-          side: BorderSide(color: AppColors.white, width: 3),
-        ),
+        shape: const CircleBorder(side: BorderSide(color: AppColors.white, width: 3)),
         child: const Icon(Icons.camera_alt, color: AppColors.white, size: 30),
       ),
       bottomNavigationBar: const CustomBottomNavBar(),
