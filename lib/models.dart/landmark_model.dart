@@ -23,16 +23,17 @@ class Landmark {
 
   factory Landmark.fromJson(Map<String, dynamic> json) {
     return Landmark(
-      id: json[ApiKey.id],
-      name: json[ApiKey.name],
+      id: int.tryParse(json[ApiKey.id].toString()) ?? 0,
+      name: json[ApiKey.name] ?? '',
       description: json[ApiKey.description],
-      location: json[ApiKey.location],
+      location: json[ApiKey.location] ?? '',
       imageUrl: json[ApiKey.imageUrl],
       openingHours: json[ApiKey.openingHours],
-      ticketPrice: json[ApiKey.ticketPrice],
-      cityId: json[ApiKey.cityId],
+      ticketPrice: num.tryParse(json[ApiKey.ticketPrice]?.toString() ?? ''),
+      cityId: int.tryParse(json[ApiKey.cityId].toString()) ?? 0,
     );
   }
+
 
   Map<String, dynamic> toJson() {
     return {

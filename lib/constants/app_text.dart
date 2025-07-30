@@ -57,7 +57,7 @@ class AppText {
   static const reset = 'Reset';
   static const otpVerification = 'OTP Verification';
   static const passwordChanged = 'Password has been changed successfully';
-  static const accountCreated = 'Account has been created successfully';
+  static const accountCreated = 'Account has been created successfully tap on Sign in to continue';
   static const resetPassword = 'Reset Password';
 
   //home

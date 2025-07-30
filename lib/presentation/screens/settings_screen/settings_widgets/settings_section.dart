@@ -9,13 +9,19 @@ import 'package:maporia/presentation/screens/settings_screen/settings_widgets/bu
 import 'package:maporia/presentation/screens/settings_screen/settings_widgets/edit_phone_dialog.dart';
 
 class SettingsSection extends StatefulWidget {
-  final String name;
+  final TextEditingController nameController;
+  final TextEditingController emailController;
   final VoidCallback onEditName;
+  final TextEditingController phoneController;
+  final TextEditingController countryController;
 
   const SettingsSection({
     super.key,
-    required this.name,
+    required this.nameController,
     required this.onEditName,
+    required this.phoneController,
+    required this.countryController,
+    required this.emailController,
   });
 
   @override
@@ -45,29 +51,33 @@ class _SettingsSectionState extends State<SettingsSection> {
 
   @override
   Widget build(BuildContext context) {
-    final cubit = context.watch<UserCubit>();
-
     return Column(
       children: [
-        // username card
+        // Username
         BuildCard(
           icon: Icons.face,
           title: AppText.username,
-          subtitle: Text(widget.name, style: const TextStyle(color: AppColors.lightCocoa)),
+          subtitle: Text(
+            widget.nameController.text.isEmpty ? "No name" : widget.nameController.text,
+            style: const TextStyle(color: AppColors.lightCocoa),
+          ),
           trailingIcon: Icons.edit,
           onTap: widget.onEditName,
         ),
         const SizedBox(height: 5),
 
-        // email card
-        const BuildCard(
+        // Email (ثابت)
+        BuildCard(
           icon: Icons.email_outlined,
           title: AppText.email,
-          subtitle: Text('ghada.af@yahoo.com', style: TextStyle(color: AppColors.lightCocoa)),
+          subtitle: Text(
+            widget.emailController.text.isEmpty ? "No email" : widget.emailController.text,
+            style: const TextStyle(color: AppColors.lightCocoa),
+          ),
         ),
         const SizedBox(height: 5),
 
-        // change password card
+        // Change password
         BuildCard(
           icon: Icons.vpn_key,
           title: AppText.changePassword,
@@ -84,28 +94,28 @@ class _SettingsSectionState extends State<SettingsSection> {
         ),
         const SizedBox(height: 5),
 
-        // phone
+        // Phone
         BuildCard(
           icon: Icons.phone,
           title: AppText.phone,
           subtitle: Text(
-            cubit.userPhone.isEmpty ? AppText.addNumber : cubit.userPhone,
+            widget.phoneController.text.isEmpty ? AppText.addNumber : widget.phoneController.text,
             style: const TextStyle(color: AppColors.white),
           ),
           trailingIcon: Icons.edit,
           onTap: () => showDialog(
             context: context,
-            builder: (_) => EditPhoneDialog(currentPhone: cubit.userPhone),
+            builder: (_) => EditPhoneDialog(currentPhone: widget.phoneController.text),
           ),
         ),
         const SizedBox(height: 5),
 
-        // country
+        // Country
         BuildCard(
           icon: Icons.flag,
           title: AppText.country,
           subtitle: Text(
-            cubit.userCountry.isEmpty ? AppText.selectCountry : cubit.userCountry,
+            widget.countryController.text.isEmpty ? AppText.selectCountry : widget.countryController.text,
             style: const TextStyle(color: AppColors.white),
           ),
           trailingIcon: showCountryOptions ? Icons.arrow_drop_up : Icons.arrow_drop_down,
@@ -122,10 +132,11 @@ class _SettingsSectionState extends State<SettingsSection> {
               return RadioListTile<String>(
                 title: Text(country),
                 value: country,
-                groupValue: cubit.userCountry,
+                groupValue: widget.countryController.text,
                 activeColor: AppColors.brown,
                 onChanged: (value) {
-                  context.read<UserCubit>().updateUserInfo(country: value!);
+                 // context.read<UserCubit>().updateUserInfo(country: value!);
+                  //widget.countryController.text = value;
                   setState(() {
                     showCountryOptions = false;
                   });
@@ -136,7 +147,7 @@ class _SettingsSectionState extends State<SettingsSection> {
 
         const SizedBox(height: 5),
 
-        // logout
+        // Logout
         BuildCard(
           subtitle: null,
           icon: Icons.logout,

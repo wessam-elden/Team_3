@@ -15,6 +15,7 @@ import 'package:maporia/presentation/screens/signup_screen/signup_widgets/signup
 import 'package:maporia/presentation/widgets/text_container.dart';
 
 import '../../../models.dart/sign_up_model.dart';
+import '../password_configuration/successful_mission.dart';
 
 class Signup extends StatelessWidget {
   static String routeName = '/signup';
@@ -35,8 +36,13 @@ class Signup extends StatelessWidget {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text(state.message), backgroundColor: Colors.green),
         );
-        Navigator.pushReplacementNamed(context, Login.routeName);
-      } else if (state is SignUpFailure) {
+        Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (_) => const SuccessfulMission(textType: '/login'),
+            ),
+        );
+            } else if (state is SignUpFailure) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text(state.errMessage), backgroundColor: Colors.red),
         );
@@ -53,25 +59,25 @@ class Signup extends StatelessWidget {
                   fontSize: 28,
               ),
             ),
-            SignUpForm(key: cubit.signUpFormKey),
-            SizedBox(height: height*0.03,),
-            state is SignUpLoading? CircularProgressIndicator(): CustomButton(
-              title: AppText.signup,
-              formKey: cubit.signUpFormKey,
-              function: () {
-          final cubit = context.read<UserCubit>();
+            SignUpForm(),
 
-          if (cubit.signUpFormKey.currentState!.validate()) {
-          final request = SignUpRequest(
-          name: cubit.signUpName.text.trim(),
-          email: cubit.signUpEmail.text.trim(),
-          password: cubit.signUpPassword.text.trim(),
-          );
-
-          cubit.signUp(request);
-          }
-              },
-            ),
+          //   CustomButton(
+          //     title: AppText.signup,
+          //     formKey: cubit.signUpFormKey,
+          //     function: () {
+          // final cubit = context.read<UserCubit>();
+          //
+          // if (cubit.signUpFormKey.currentState!.validate()) {
+          // final request = SignUpRequest(
+          // name: cubit.signUpName.text.trim(),
+          // email: cubit.signUpEmail.text.trim(),
+          // password: cubit.signUpPassword.text.trim(),
+          // );
+          //
+          // cubit.signUp(request);
+          // }
+          //     },
+          //   ),
             SizedBox(height: height*0.02,),
             Padding(
               padding: const EdgeInsets.only(

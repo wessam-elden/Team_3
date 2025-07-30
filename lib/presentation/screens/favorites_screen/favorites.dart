@@ -54,9 +54,9 @@ class _FavoritePlacesPageState extends State<FavoritesPage> {
       context,
       MaterialPageRoute(
         builder: (_) => PlaceInfo(
-          title: place.name,
-          description: place.description ?? '',
-          image: place.imageUrl ?? '',
+          // title: place.name,
+          // description: place.description ?? '',
+          // image: place.imageUrl ?? '',
           place: place,
         ),
       ),

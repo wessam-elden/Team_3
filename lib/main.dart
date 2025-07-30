@@ -13,10 +13,12 @@ import 'package:maporia/presentation/screens/password_configuration/successful_m
 import 'package:maporia/presentation/screens/profile_screen/profile.dart';
 import 'package:maporia/presentation/screens/settings_screen/settings.dart';
 import 'package:maporia/presentation/screens/signup_screen/signup.dart';
+
+import 'cache/cache_helper.dart';
 void main(){
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
-
+  CacheHelper.init();
   runApp(
     BlocProvider(
       create: (context) => UserCubit(),

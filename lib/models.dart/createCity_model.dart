@@ -8,7 +8,8 @@ class City {
 
   factory City.fromJson(Map<String, dynamic> json) {
     return City(
-      id: json[ApiKey.id],
+      id: json[ApiKey.id] is int ? json[ApiKey.id] : int.tryParse(json[ApiKey.id].toString()) ?? 0,
+
       name: json[ApiKey.name] ?? '', // Use empty string if name is null
     );
   }

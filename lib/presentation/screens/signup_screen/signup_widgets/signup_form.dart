@@ -5,6 +5,8 @@ import 'package:maporia/constants/app_colors.dart';
 import 'package:maporia/presentation/widgets/custom_text_field.dart';
 
 import '../../../../cubit/user_cubit.dart';
+import '../../../../cubit/user_state.dart';
+import '../../../../models.dart/sign_up_model.dart';
 
 class SignUpForm extends StatefulWidget {
 //final GlobalKey<FormState> formKey;
@@ -141,6 +143,39 @@ class _SignUpFormState extends State<SignUpForm> {
               child: Icon(
                 isConfirmPasswordVisible ? Icons.visibility : Icons.visibility_off,
               ),
+            ),
+          ),
+          SizedBox(height: 20,),
+         // state is SignUpLoading? CircularProgressIndicator():
+          SizedBox(
+            height: MediaQuery.of(context).size.height*0.06,
+            width: MediaQuery.of(context).size.width*0.7,
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(backgroundColor: AppColors.brownCinnamon),
+              onPressed: (){
+
+                if(cubit.signUpFormKey.currentState?.validate()==true) {
+                  final cubit = context.read<UserCubit>();
+
+                  if (cubit.signUpFormKey.currentState!.validate()) {
+                    final request = SignUpRequest(
+                      name: cubit.signUpName.text.trim(),
+                      email: cubit.signUpEmail.text.trim(),
+                      password: cubit.signUpPassword.text.trim(),
+                    );
+
+                    cubit.signUp(request);
+                  }
+
+                }
+              },
+              child: Text(
+                AppText.signup,
+                style: const TextStyle(
+                    fontSize: 16,
+                    color: AppColors.ivoryWhite
+                ),
+              ) ,
             ),
           ),
         ],

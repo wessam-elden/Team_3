@@ -3,12 +3,13 @@ import 'package:maporia/constants/app_colors.dart';
 import 'package:maporia/constants/app_text.dart';
 
 class EditNameDialog extends StatefulWidget {
-  final String currentName;
+  final TextEditingController nameController;
+
   final Function(String) onNameChanged;
 
   const EditNameDialog({
     super.key,
-    required this.currentName,
+    required this.nameController,
     required this.onNameChanged,
   });
 
@@ -23,7 +24,7 @@ class _EditNameDialogState extends State<EditNameDialog> {
   @override
   void initState() {
     super.initState();
-    _controller = TextEditingController(text: widget.currentName);
+    _controller = TextEditingController(text: widget.nameController.text);
   }
 
   @override

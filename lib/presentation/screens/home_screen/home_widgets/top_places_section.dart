@@ -68,9 +68,12 @@ class TopPlacesSection extends StatelessWidget {
                 itemCount: places.length,
                 itemBuilder: (context, index) {
                   final place = places[index];
+                  print("Place at index $index: ${place.name}, ID: ${place.id}");
+
                   return PlaceCard(place: place);
                 },
               ),
+
               if (canScrollLeft)
                 Align(
                   alignment: Alignment.centerLeft,

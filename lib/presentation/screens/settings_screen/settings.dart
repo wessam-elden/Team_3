@@ -9,6 +9,7 @@ import 'package:maporia/presentation/widgets/text_container.dart';
 
 class Settings extends StatelessWidget {
   static String routeName = '/settings';
+
   const Settings({super.key});
 
   @override
@@ -24,23 +25,28 @@ class Settings extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: SettingsSection(
-            name: cubit.userName,
-            onEditName: () => _editName(context, cubit.userName),
+            nameController: cubit.profileNameController,
+            onEditName: () => _editName(context, cubit.profileNameController),
+            phoneController: cubit.profilePhoneController,
+            countryController: cubit.profileCountryController, emailController: cubit.profileEmailController,
           ),
+
         ),
+
       ],
     );
   }
 
-  void _editName(BuildContext context, String currentName) {
+  void _editName(BuildContext context, TextEditingController nameController) {
     showDialog(
       context: context,
-      builder: (_) => EditNameDialog(
-        currentName: currentName,
-        onNameChanged: (newName) {
-          context.read<UserCubit>().updateUserInfo(name: newName);
-        },
-      ),
+      builder: (_) =>
+          EditNameDialog(
+            nameController: nameController,
+            onNameChanged: (newName) {
+              context.read<UserCubit>().updateUserInfo(name: newName);
+            },
+          ),
     );
   }
 }

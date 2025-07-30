@@ -110,37 +110,65 @@ final class CreateVisitFailure extends UserState {
   CreateVisitFailure({required this.errMessage});
 }
 
-final class UserLoaded extends UserState {
+//get profile
+final class GetProfileLoading extends UserState {}
+final class GetProfileSuccess extends UserState {
   final String name;
   final String email;
   final String phoneNumber;
   final String country;
   final String role;
 
-  UserLoaded({
+  GetProfileSuccess({
     required this.name,
     required this.email,
     required this.phoneNumber,
     required this.country,
     required this.role,
   });
-
-  UserLoaded copyWith({
-    String? name,
-    String? email,
-    String? phoneNumber,
-    String? country,
-    String? role,
-  }) {
-    return UserLoaded(
-      name: name ?? this.name,
-      email: email ?? this.email,
-      phoneNumber: phoneNumber ?? this.phoneNumber,
-      country: country ?? this.country,
-      role: role ?? this.role,
-    );
-  }
 }
+final class GetProfileFailure extends UserState {
+  final String errMessage;
+
+  GetProfileFailure({required this.errMessage});
+}
+
 final class UserInfoUpdated extends UserState {}
+
+
+
+
+// final class UserLoaded extends UserState {
+//   final String name;
+//   final String email;
+//   final String phoneNumber;
+//   final String country;
+//   final String role;
+//
+//   UserLoaded({
+//     required this.name,
+//     required this.email,
+//     required this.phoneNumber,
+//     required this.country,
+//     required this.role,
+//   });
+//
+//   UserLoaded copyWith({
+//     String? name,
+//     String? email,
+//     String? phoneNumber,
+//     String? country,
+//     String? role,
+//   }) {
+//     return UserLoaded(
+//       name: name ?? this.name,
+//       email: email ?? this.email,
+//       phoneNumber: phoneNumber ?? this.phoneNumber,
+//       country: country ?? this.country,
+//       role: role ?? this.role,
+//     );
+//   }
+// }
+//final class UserInfoUpdated extends UserState {}
 
 

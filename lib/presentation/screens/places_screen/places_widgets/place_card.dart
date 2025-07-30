@@ -17,9 +17,6 @@ class PlaceCard extends StatelessWidget {
           context,
           MaterialPageRoute(
             builder: (_) => PlaceInfo(
-              title: place.name,
-              description: place.description ?? 'No description',
-              image: place.imageUrl ?? '',
               place: place,
             ),
           ),

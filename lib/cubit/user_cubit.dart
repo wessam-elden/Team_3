@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:maporia/cubit/user_state.dart';
+import 'package:maporia/dio_withtoken/dio_withtoken.dart';
 import 'package:maporia/models.dart/login_model.dart';
 
 import '../cache/cache_helper.dart';
@@ -10,6 +11,7 @@ import '../core/api/api_dio/api_endpoints.dart';
 import '../core/api/api_dio/api_keys.dart';
 import '../models.dart/createCity_model.dart';
 import '../models.dart/landmark_model.dart';
+import '../models.dart/profile_model.dart';
 import '../models.dart/sign_up_model.dart';
 import '../models.dart/visit_model.dart';
 
@@ -29,6 +31,13 @@ class UserCubit extends Cubit<UserState> {
   GlobalKey<FormState> signUpFormKey = GlobalKey();
   TextEditingController signUpConfirmPassword = TextEditingController();
 
+  TextEditingController profileNameController = TextEditingController();
+  TextEditingController profileEmailController = TextEditingController();
+  TextEditingController profilePhoneController = TextEditingController();
+  TextEditingController profileCountryController = TextEditingController();
+  TextEditingController profileRoleController = TextEditingController();
+  Map<String, List<Landmark>> landmarksByCity = {};
+
 
   Future<void> login(LoginRequest request) async {
     emit(LoginInLoading());
@@ -36,27 +45,28 @@ class UserCubit extends Cubit<UserState> {
       final response = await dio.post(
         Endpoints.logIn,
         data: request.toJson(),
-        options: Options(headers: {
-          ApiKey.contentType: ApiKey.applicationJson,
-        },
-            validateStatus: (_) => true,
+        options: Options(
+          headers: {
+            ApiKey.contentType: ApiKey.applicationJson,
+          },
+          validateStatus: (_) => true,
         ),
       );
 
-      final token = response.data[ApiKey.token];
-      final message = response.data[ApiKey.message];
+      final statusCode = response.statusCode;
+      print('Status code: $statusCode');
+      print('Response: ${response.data}');
 
-      await CacheHelper.saveData(key: ApiKey.token, value: token);
 
-      emit(LoginInSuccess(message: message));
-    } on DioException catch (e) {
-      final statusCode = e.response?.statusCode;
-      final msg = e.response?.data[ApiKey.message] ?? 'Something went wrong';
-      print("Dio error: ${e.message}");
-      print('Login error: ${e.response?.data}');
-      print('Status code: ${e.response?.statusCode}');
+      if (statusCode == 200) {
+        final token = response.data[ApiKey.token];
+        final message = response.data[ApiKey.message];
 
-      if (statusCode == 400) {
+        print("Token received: $token");
+
+        await CacheHelper.saveData(key: ApiKey.token, value: token);
+        emit(LoginInSuccess(message: message));
+      } else if (statusCode == 400) {
         emit(LoginInFailure(
             errMessage: "Please enter both email and password."));
       } else if (statusCode == 401) {
@@ -65,8 +75,17 @@ class UserCubit extends Cubit<UserState> {
         emit(LoginInFailure(
             errMessage: "Login failed. Please try again later."));
       } else {
+        final msg = response.data[ApiKey.message] ?? "Unexpected error.";
         emit(LoginInFailure(errMessage: msg));
       }
+    } on DioException catch (e) {
+      print("Dio error: ${e.message}");
+      print("Dio response: ${e.response?.data}");
+      emit(LoginInFailure(
+          errMessage: "Network error. Please check your internet or try again later."));
+    } catch (e) {
+      print("Unexpected error: $e");
+      emit(LoginInFailure(errMessage: "Unexpected error occurred."));
     }
   }
 
@@ -157,18 +176,19 @@ class UserCubit extends Cubit<UserState> {
   Future<void> getAllCities() async {
     emit(GetAllCitiesLoading());
     try {
-      final response = await dio.get(Endpoints.getCities);
+      final response = await dio.getWithToken(Endpoints.getCities);
+      print("Cities response: ${response.data}");
 
       final data = response.data['data'] as List;
       final cities = data.map((e) => City.fromJson(e)).toList();
 
       emit(GetAllCitiesSuccess(cities: cities));
     } on DioException catch (e) {
-      final msg = e.response?.data[ApiKey.message] ?? 'Failed to load cities. Please try again later.';
+      final msg = e.response?.data[ApiKey.message] ??
+          'Failed to load cities. Please try again later.';
       emit(GetAllCitiesFailure(errMessage: msg));
     }
   }
-
 
 
 // Create new landmark
@@ -228,13 +248,16 @@ class UserCubit extends Cubit<UserState> {
   Future<void> getAllLandmarks() async {
     emit(GetAllLandmarksLoading());
     try {
-      final response = await dio.get(Endpoints.getLandmarks);
-
+      print("aaaaaaaaaaavbvvvvvvvvvvvaaaaaaa");
+      final response = await dio.getWithToken(Endpoints.getLandmarks);
+      print("aaaaaaaaaaaaaaaaaa");
       final data = response.data['data'] as List;
+      print("aaaaaaaaaaaaaaaaaa222");
       final landmarks = data.map((e) => Landmark.fromJson(e)).toList();
 
       emit(GetAllLandmarksSuccess(landmarks: landmarks));
     } on DioException catch (e) {
+      print("Error fetching landmarks: ${e.message}");
       final msg = e.response?.data[ApiKey.message] ??
           'Failed to load landmarks. Please try again later.';
       emit(GetAllLandmarksFailure(errMessage: msg));
@@ -246,19 +269,21 @@ class UserCubit extends Cubit<UserState> {
   Future<void> getLandmarksByCityId(int cityId) async {
     emit(GetLandmarksByCityLoading());
     try {
-      final response = await dio.get(
-        Endpoints.getLandmarksByCityId.replaceFirst(':cityId', cityId.toString()),
-      );
-
+      final response = await dio.getWithToken(Endpoints.getLandmarksByCityIdd);
+      print("Landmarks by CityId Response: ${response.data}");
       final data = response.data['data'] as List;
       final landmarks = data.map((e) => Landmark.fromJson(e)).toList();
 
+      landmarksByCity[cityId.toString()] = landmarks;
+
       emit(GetLandmarksByCitySuccess(landmarks: landmarks));
     } on DioException catch (e) {
-      final msg = e.response?.data[ApiKey.message] ?? 'Failed to fetch landmarks. Please try again later.';
+      final msg = e.response?.data[ApiKey.message] ??
+          'Failed to fetch landmarks. Please try again later.';
       emit(GetLandmarksByCityFailure(errMessage: msg));
     }
   }
+
 
 
   // Create visit
@@ -268,7 +293,8 @@ class UserCubit extends Cubit<UserState> {
     try {
       final token = await CacheHelper.getData(key: ApiKey.token);
       if (token == null) {
-        emit(CreateVisitFailure(errMessage: "You must be logged in to record a visit."));
+        emit(CreateVisitFailure(
+            errMessage: "You must be logged in to record a visit."));
         return;
       }
 
@@ -285,38 +311,89 @@ class UserCubit extends Cubit<UserState> {
       emit(CreateVisitSuccess(message: message));
     } on DioException catch (e) {
       final statusCode = e.response?.statusCode;
-      final msg = e.response?.data[ApiKey.message] ?? 'Could not record visit. Please try again later.';
+      final msg = e.response?.data[ApiKey.message] ??
+          'Could not record visit. Please try again later.';
 
       if (statusCode == 400) {
-        emit(CreateVisitFailure(errMessage: "Please fill in all required fields."));
+        emit(CreateVisitFailure(
+            errMessage: "Please fill in all required fields."));
       } else if (statusCode == 401) {
-        emit(CreateVisitFailure(errMessage: "You must be logged in to record a visit."));
+        emit(CreateVisitFailure(
+            errMessage: "You must be logged in to record a visit."));
       } else {
         emit(CreateVisitFailure(errMessage: msg));
       }
     }
   }
 
+//get profile
+  Future<void> getProfile() async {
+    emit(GetProfileLoading());
 
-  String userName = "ghada";
-  String userPhone = "0123456789";
-  String userCountry = "Egypt";
-  String userRole = "Tourist";
-  String userEmail = "ghada@example.com";
+    try {
+      final response = await dio.getWithToken(Endpoints.getProfile);
 
-  String get name => userName;
-  String get phone => userPhone;
-  String get country => userCountry;
-  String get role => userRole;
-  String get email => userEmail;
+      final profileResponse = GetProfileResponse.fromJson(response.data);
+      final profile = profileResponse.data;
+
+      profileNameController.text = profile.name;
+      profileEmailController.text = profile.email;
+      profilePhoneController.text = profile.phone_number;
+      profileCountryController.text = profile.country;
+      profileRoleController.text = profile.role;
+
+      emit(GetProfileSuccess(
+        name: profile.name,
+        email: profile.email,
+        phoneNumber: profile.phone_number,
+        country: profile.country,
+        role: profile.role,
+      ));
+    } on DioException catch (e) {
+      final statusCode = e.response?.statusCode;
+      String errorMessage = "Something went wrong. Please try again later.";
+
+      if (statusCode == 400) {
+        errorMessage = "Invalid user session. Please log in again.";
+      } else if (statusCode == 404) {
+        errorMessage = "User account not found.";
+      } else if (statusCode == 500) {
+        errorMessage = "Something went wrong. Please try again later.";
+      } else {
+        errorMessage = e.response?.data['message'] ?? errorMessage;
+      }
+
+      emit(GetProfileFailure(errMessage: errorMessage));
+    }
+  }
 
   void updateUserInfo({String? name, String? phone, String? country}) {
-    if (name != null) userName = name;
-    if (phone != null) userPhone = phone;
-    if (country != null) userCountry = country;
+    if (name != null) profileNameController.text = name;
+    if (phone != null) profilePhoneController.text = phone;
+    if (country != null) profileCountryController.text = country;
 
     emit(UserInfoUpdated());
   }
 
+
+// String userName = "ghada";
+// String userPhone = "0123456789";
+// String userCountry = "Egypt";
+// String userRole = "Tourist";
+// String userEmail = "ghada@example.com";
+//
+// String get name => userName;
+// String get phone => userPhone;
+// String get country => userCountry;
+// String get role => userRole;
+// String get email => userEmail;
+//
+// void updateUserInfo({String? name, String? phone, String? country}) {
+//   if (name != null) userName = name;
+//   if (phone != null) userPhone = phone;
+//   if (country != null) userCountry = country;
+//
+//   emit(UserInfoUpdated());
+// }
 
 }

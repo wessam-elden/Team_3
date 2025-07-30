@@ -30,12 +30,7 @@ class AllPlacesPage extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (_) => PlaceInfo(
-                    title: place.name,
-                    description: place.description ?? 'No description',
-                    image: place.imageUrl ?? '',
-                    place: place,
-                  ),
+                  builder: (_) => PlaceInfo(place: place),
                 ),
               );
             },

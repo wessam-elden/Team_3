@@ -7,12 +7,15 @@ class Endpoints {
   //cities and landmarks
   static const String getCities = '${baseUrl}city/all';
   static const String createcity = '${baseUrl}city/create';
-  static const String getLandmarksByCityId = '${baseUrl}landmark/byCity/:cityId';
+  static const String getLandmarksByCityIdd = '${baseUrl}landmark/byCity/:cityId';
   static const String getLandmarks = '${baseUrl}landmark/all';
   static const String createLandmark = '${baseUrl}landmark/create';
   //visits
   static const String createVisit = '${baseUrl}visit/create';
   static const String getVisits = '${baseUrl}visit/getAll';
+
+  //ai
+  static const String chatpot = '${baseUrl}AI/chat';
 
 }
 

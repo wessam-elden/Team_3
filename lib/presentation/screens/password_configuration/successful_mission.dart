@@ -26,6 +26,7 @@ class SuccessfulMission extends StatelessWidget {
                   ? AppText.accountCreated
                   : AppText.passwordChanged,
           textAlign: TextAlign.center,
+
           fontSize: 16,
         ),
         SizedBox(height: height * 0.01),

@@ -6,7 +6,7 @@ import { ResultSetHeader } from 'mysql2';
 export async function createUser(user: Omit<User, "id" | "created_at">): Promise<void> {
   const {
     email, password, name, country, isverified, provider,
-    provider_id, phone_number, role, verification_code
+    provider_id, phone_number, role
   } = user;
 
   const query = `
