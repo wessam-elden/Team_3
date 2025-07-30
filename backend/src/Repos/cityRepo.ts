@@ -4,7 +4,6 @@ import { City } from "../models/City";
 export async function getAllCities(): Promise<City[]> {
   const [rows] = await pool.query("SELECT * FROM city");
   return rows as City[];
-  console.log("getAllCities executed successfully");
 }
 export async function createCity(name: string): Promise<City> {
   const [result] = await pool.query("INSERT INTO City (name) VALUES (?)", [name]);
