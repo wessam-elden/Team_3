@@ -2,7 +2,6 @@
 import { Router } from 'express';
 import { getProfile, login, signup } from '../modules/auth';
 import { verifyTokenMiddleware } from '../middlewares/auth';
-import { createVisitHandler, getAllVisitsHandler } from '../modules/visit';
 import { requestPasswordReset, verifyOtp, resetPasswordWithOtp } from '../modules/passwordReset';
 
 const router = Router();
