@@ -271,7 +271,7 @@ class UserCubit extends Cubit<UserState> {
   Future<void> getLandmarksByCityId(int cityId) async {
     emit(GetLandmarksByCityLoading());
     try {
-      final response = await dio.getWithToken(Endpoints.getLandmarksByCityIdd);
+      final response = await dio.getWithToken('${Endpoints.getLandmarksByCityIdd}$cityId');
       print("Landmarks by CityId Response: ${response.data}");
       final data = response.data['data'] as List;
       final landmarks = data.map((e) => Landmark.fromJson(e)).toList();

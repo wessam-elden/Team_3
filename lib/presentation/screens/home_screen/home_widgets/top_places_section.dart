@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:maporia/constants/app_colors.dart';
 import 'package:maporia/constants/app_text.dart';
 import 'package:maporia/presentation/screens/places_screen/places.dart';
+import '../../../../cubit/user_cubit.dart';
+import '../../../../cubit/user_state.dart';
 import '../../../../models.dart/landmark_model.dart';
 import 'place_card.dart';
 
@@ -24,6 +27,13 @@ class TopPlacesSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    List<Landmark> allLandmarks = [];
+
+
+    final userState = context.watch<UserCubit>().state;
+    if (userState is GetAllLandmarksSuccess) {
+      allLandmarks = userState.landmarks;
+    }
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -38,12 +48,13 @@ class TopPlacesSection extends StatelessWidget {
                 color: AppColors.chestnutBrown,
               ),
             ),
+
             ElevatedButton(
               onPressed: () {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (_) => Places(places: places),
+                    builder: (_) => Places(places: allLandmarks),
                   ),
                 );
               },
