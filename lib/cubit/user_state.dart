@@ -136,6 +136,23 @@ final class GetProfileFailure extends UserState {
 final class UserInfoUpdated extends UserState {}
 
 
+class ChatLoading extends UserState {}
+
+class ChatSuccess extends UserState {
+  final String answer;
+  final double responseTimeSec;
+
+  ChatSuccess({required this.answer, required this.responseTimeSec});
+}
+
+class ChatFailure extends UserState {
+  final String errMessage;
+
+  ChatFailure({required this.errMessage});
+}
+
+
+
 
 
 // final class UserLoaded extends UserState {

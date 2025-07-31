@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:maporia/presentation/screens/chatbot_screen/chatbot_widgets/chat_background.dart';
-import 'package:maporia/presentation/screens/chatbot_screen/chatbot_widgets/chat_input_field.dart';
-import 'package:maporia/presentation/screens/chatbot_screen/chatbot_widgets/chat_message_bubble.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:maporia/cubit/user_cubit.dart';
+import 'package:maporia/cubit/user_state.dart';
+import 'chatbot_widgets/chat_background.dart';
+import 'chatbot_widgets/chat_input_field.dart';
+import 'chatbot_widgets/chat_message_bubble.dart';
 
 class ChatBotPage extends StatefulWidget {
   const ChatBotPage({super.key});
@@ -16,13 +19,20 @@ class _ChatBotPageState extends State<ChatBotPage> {
 
   void _sendMessage() {
     final text = _controller.text.trim();
-    if (text.isNotEmpty) {
-      setState(() {
-        _messages.add({"sender": "user", "text": text});
-        _messages.add({"sender": "bot", "text": "📜 $text"});
-      });
-      _controller.clear();
-    }
+    if (text.isEmpty) return;
+
+    setState(() {
+      _messages.add({"sender": "user", "text": text});
+    });
+
+    context.read<UserCubit>().sendChat(text);
+    _controller.clear();
+  }
+
+  void _handleBotResponse(String answer) {
+    setState(() {
+      _messages.add({"sender": "bot", "text": answer});
+    });
   }
 
   @override
@@ -39,18 +49,36 @@ class _ChatBotPageState extends State<ChatBotPage> {
           Column(
             children: [
               Expanded(
-                child: ListView.builder(
-                  padding: const EdgeInsets.all(12),
-                  itemCount: _messages.length,
-                  itemBuilder: (context, index) {
-                    final msg = _messages[index];
-                    return ChatMessageBubble(
-                      text: msg["text"] ?? "",
-                      isUser: msg["sender"] == "user",
+                child: BlocConsumer<UserCubit, UserState>(
+                  listener: (context, state) {
+                    if (state is ChatSuccess) {
+                      _handleBotResponse(state.answer);
+                    } else if (state is ChatFailure) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text(state.errMessage)),
+                      );
+                    }
+                  },
+                  builder: (context, state) {
+                    return ListView.builder(
+                      padding: const EdgeInsets.all(12),
+                      itemCount: _messages.length,
+                      itemBuilder: (context, index) {
+                        final msg = _messages[index];
+                        return ChatMessageBubble(
+                          text: msg["text"] ?? "",
+                          isUser: msg["sender"] == "user",
+                        );
+                      },
                     );
                   },
                 ),
               ),
+              if (context.watch<UserCubit>().state is ChatLoading)
+                const Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: CircularProgressIndicator(),
+                ),
               ChatInputField(controller: _controller, onSend: _sendMessage),
             ],
           ),

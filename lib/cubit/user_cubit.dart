@@ -9,6 +9,7 @@ import 'package:maporia/models.dart/login_model.dart';
 import '../cache/cache_helper.dart';
 import '../core/api/api_dio/api_endpoints.dart';
 import '../core/api/api_dio/api_keys.dart';
+import '../models.dart/chatpot_model.dart';
 import '../models.dart/createCity_model.dart';
 import '../models.dart/landmark_model.dart';
 import '../models.dart/profile_model.dart';
@@ -63,6 +64,7 @@ class UserCubit extends Cubit<UserState> {
         final message = response.data[ApiKey.message];
 
         print("Token received: $token");
+        await CacheHelper.removeData(key: ApiKey.token);
 
         await CacheHelper.saveData(key: ApiKey.token, value: token);
         emit(LoginInSuccess(message: message));
@@ -375,6 +377,42 @@ class UserCubit extends Cubit<UserState> {
     emit(UserInfoUpdated());
   }
 
+  Future<void> sendChat (String question) async {
+    emit(ChatLoading());
+
+    try {
+      final token = await CacheHelper.getData(key: ApiKey.token);
+
+      if (token == null) {
+        emit(ChatFailure(errMessage: "You must be logged in."));
+        return;
+      }
+
+      final response = await dio.post(
+        Endpoints.chatpot,
+        data: {'question': question},
+        options: Options(
+          headers: {
+            ApiKey.contentType: ApiKey.applicationJson,
+            'Authorization': 'Bearer $token',
+          },
+        ),
+      );
+
+      final data = response.data;
+      final chatResponse = ChatResponse.fromJson(data);
+
+
+      emit(ChatSuccess(
+        answer: chatResponse.answer,
+        responseTimeSec: chatResponse.responseTimeSec,
+      ));
+    } on DioException catch (e) {
+      final msg = e.response?.data['message'] ?? 'Something went wrong.';
+      emit(ChatFailure(errMessage: msg));
+    }
+  }
+
 
 // String userName = "ghada";
 // String userPhone = "0123456789";
@@ -395,5 +433,6 @@ class UserCubit extends Cubit<UserState> {
 //
 //   emit(UserInfoUpdated());
 // }
+
 
 }
